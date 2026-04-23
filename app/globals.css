@@ -1,26 +1,333 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Design Tokens — oh-my-copilot
+   Cyberpunk-terminal aesthetic: deep navy + electric cyan
+   ============================================================ */
+
+/* Default: dark theme (cyberpunk-primary) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-base: #060d1a;
+  --bg-surface: #0d1b2e;
+  --bg-card: #0f2035;
+  --bg-glass: rgba(6, 13, 26, 0.85);
+
+  --text-primary: #e8f4ff;
+  --text-secondary: #8bacc4;
+  --text-muted: #4a6d8c;
+
+  --accent: #00ccff;
+  --accent-dim: rgba(0, 204, 255, 0.1);
+  --accent-glow: rgba(0, 204, 255, 0.35);
+
+  --border-color: rgba(0, 204, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  --grid-color: rgba(0, 204, 255, 0.04);
+  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 24px rgba(0, 204, 255, 0.15);
 }
 
+/* Auto light — system prefers light and no explicit data-theme override */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg-base: #f0f6ff;
+    --bg-surface: #ffffff;
+    --bg-card: #f8fbff;
+    --bg-glass: rgba(240, 246, 255, 0.9);
+
+    --text-primary: #0a1628;
+    --text-secondary: #3d5a80;
+    --text-muted: #7090b0;
+
+    --accent: #0088bb;
+    --accent-dim: rgba(0, 136, 187, 0.1);
+    --accent-glow: rgba(0, 136, 187, 0.25);
+
+    --border-color: rgba(0, 136, 187, 0.15);
+    --border-subtle: rgba(0, 0, 0, 0.06);
+
+    --grid-color: rgba(0, 136, 187, 0.04);
+    --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.08);
+    --shadow-glow: 0 0 24px rgba(0, 136, 187, 0.12);
+  }
+}
+
+/* Forced dark */
+[data-theme="dark"] {
+  --bg-base: #060d1a;
+  --bg-surface: #0d1b2e;
+  --bg-card: #0f2035;
+  --bg-glass: rgba(6, 13, 26, 0.85);
+
+  --text-primary: #e8f4ff;
+  --text-secondary: #8bacc4;
+  --text-muted: #4a6d8c;
+
+  --accent: #00ccff;
+  --accent-dim: rgba(0, 204, 255, 0.1);
+  --accent-glow: rgba(0, 204, 255, 0.35);
+
+  --border-color: rgba(0, 204, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  --grid-color: rgba(0, 204, 255, 0.04);
+  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 24px rgba(0, 204, 255, 0.15);
+}
+
+/* Forced light */
+[data-theme="light"] {
+  --bg-base: #f0f6ff;
+  --bg-surface: #ffffff;
+  --bg-card: #f8fbff;
+  --bg-glass: rgba(240, 246, 255, 0.9);
+
+  --text-primary: #0a1628;
+  --text-secondary: #3d5a80;
+  --text-muted: #7090b0;
+
+  --accent: #0088bb;
+  --accent-dim: rgba(0, 136, 187, 0.1);
+  --accent-glow: rgba(0, 136, 187, 0.25);
+
+  --border-color: rgba(0, 136, 187, 0.15);
+  --border-subtle: rgba(0, 0, 0, 0.06);
+
+  --grid-color: rgba(0, 136, 187, 0.04);
+  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 24px rgba(0, 136, 187, 0.12);
+}
+
+/* ============================================================
+   Tailwind Theme Extension
+   ============================================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+  --color-surface: var(--bg-surface);
+  --color-card: var(--bg-card);
+  --color-accent: var(--accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Base Styles
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   Hero Grid Pattern
+   ============================================================ */
+.hero-grid {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ============================================================
+   Blog Card
+   ============================================================ */
+.blog-card {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  border-color: var(--accent);
+}
+
+/* ============================================================
+   Blog Post Prose Styles
+   ============================================================ */
+.prose-content {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1.0625rem;
+}
+
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+  font-family: var(--font-geist-mono), monospace;
+  color: var(--text-primary);
+  margin-top: 2.25rem;
+  margin-bottom: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose-content h1 {
+  font-size: 1.875rem;
+}
+.prose-content h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.prose-content h3 {
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+.prose-content h4 {
+  font-size: 1.125rem;
+}
+
+.prose-content p {
+  margin-bottom: 1.25rem;
+}
+
+.prose-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+.prose-content a:hover {
+  opacity: 0.75;
+}
+
+.prose-content code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.875em;
+  background-color: var(--accent-dim);
+  color: var(--accent);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.prose-content pre {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 0 0 1px var(--border-subtle);
+}
+
+.prose-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.prose-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.prose-content ul,
+.prose-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-content li {
+  margin-bottom: 0.4rem;
+}
+.prose-content ul li::marker {
+  color: var(--accent);
+}
+.prose-content ol li::marker {
+  color: var(--accent);
+  font-family: var(--font-geist-mono);
+}
+
+.prose-content hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2rem 0;
+}
+
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.prose-content th {
+  background-color: var(--accent-dim);
+  color: var(--accent);
+  font-family: var(--font-geist-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid var(--border-color);
+}
+
+.prose-content td {
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.prose-content tr:nth-child(even) td {
+  background-color: var(--accent-dim);
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.65s ease both;
+}
+
+.animate-blink {
+  animation: blink 1.2s step-end infinite;
 }
