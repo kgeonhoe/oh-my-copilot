@@ -33,7 +33,7 @@ git merge copilot-settings --no-edit
 快速读取关键文件，了解现状：
 
 - `AGENTS.md` — 项目级约束
-- `docs/features/` — 已有功能列表
+- `.github/features/` — 已有功能列表
 - 相关的 `app/`、`server/`、`components/` 目录结构
 
 ### 1.2 需求讨论与澄清
@@ -52,7 +52,7 @@ git merge copilot-settings --no-edit
 
 ### 1.3 写 Spec 文档
 
-将讨论结论整理为 `docs/features/<feature-name>/index.md`，包含：
+将讨论结论整理为 `.github/features/<feature-name>/index.md`，包含：
 
 ```markdown
 # Feature: <名称>
@@ -78,13 +78,13 @@ git merge copilot-settings --no-edit
 
 展示给用户，等用户回复 "ok" 后再继续。
 
-### 1.4 委托 Worker 实现
+### 1.4 调用 work skill 实现
 
-调用 `Worker` 子 agent，传入 spec 路径：
+加载并执行 `work` skill（`.github/skills/work/SKILL.md`），传入 spec 路径：`.github/features/<feature-name>/index.md`。
 
-> 实现 `docs/features/<feature-name>/index.md` 中描述的功能。
+work skill 在当前对话上下文中运行，共享完整的需求讨论历史，无需再次解释背景。
 
-等待 Worker 返回实现报告（包含所有修改的文件路径）。
+等待 work skill 完成并返回实现报告（包含所有修改的文件路径）。
 
 ### 1.5 委托 Tester 测试
 
@@ -92,7 +92,7 @@ git merge copilot-settings --no-edit
 
 > 根据以下验收标准，为已实现的功能更新并执行测试。
 > 验收标准：[从 spec 复制]
-> 实现报告：[Worker 返回的内容]
+> 实现报告：[work skill 返回的内容]
 
 等待 Tester 返回测试报告（通过/失败）。
 
@@ -100,7 +100,7 @@ git merge copilot-settings --no-edit
 
 调用 `Objector` 子 agent，传入 spec + 实现报告：
 
-> 对以下实现进行批评性评审。[spec 路径 + 实现报告]
+> 对以下实现进行批评性评审。[`.github/features/<feature-name>/index.md` 路径 + 实现报告]
 
 等待 Objector 返回批评报告。
 

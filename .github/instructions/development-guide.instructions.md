@@ -13,7 +13,7 @@ applyTo: "**"
 
 4. **Use Boss for `.github/` changes** — Any change to files inside `.github/` must be delegated to the `Boss` sub-agent. Do not modify `.github/` files directly.
 
-5. **Use Worker for app code changes** — Any change to files outside `.github/` must be delegated to the `Worker` sub-agent. Do not modify app code directly.
+5. **Use the `work` skill for app code changes** — Any change to files outside `.github/` must be implemented via the `work` skill (`.github/skills/work/SKILL.md`). Boss invokes it inline, sharing full conversation context.
 
 ---
 
