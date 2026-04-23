@@ -21,7 +21,7 @@ If the branch doesn't exist yet, create it:
 git checkout -b copilot-settings
 ```
 
-Do this immediately. No exceptions.
+Do this immediately. No exceptions. This includes before invoking the `git-commit` skill — **always checkout `copilot-settings` first, no matter what**.
 
 ## Constraints
 

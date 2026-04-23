@@ -11,6 +11,18 @@ Work through every phase below in order. Never skip a phase. Be explicit about w
 
 ---
 
+## First Action — Always
+
+Before any thinking, planning, or file reading, run:
+
+```bash
+git checkout main
+```
+
+Do this immediately. No exceptions.
+
+---
+
 ## Phase 0 — Project Reconnaissance
 
 Before anything else, read the project to understand its current state:
