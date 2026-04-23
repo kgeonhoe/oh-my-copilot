@@ -27,7 +27,7 @@ git checkout main
 1. 传入的 spec 文档（`docs/features/<name>/index.md`）
 2. `AGENTS.md` — 项目约束
 3. `.github/instructions/nextjs-tailwind.instructions.md` — 前端规范
-4. `.github/instructions/general-frontend.instructions.md` — TypeScript/JSDoc 规范
+4. `.github/instructions/general-frontend.instructions.md` — TypeScript 规范
 5. `.github/instructions/go-gin.instructions.md` — 后端规范（如涉及后端）
 6. `app/` 目录结构 — 现有路由
 7. `components/` 、`lib/`、`types/` — 可复用模块
@@ -61,7 +61,7 @@ git checkout main
 ### 前端规范
 
 - 遵循 `.github/instructions/nextjs-tailwind.instructions.md`
-- 遵循 `.github/instructions/general-frontend.instructions.md`
+- 遵循 `.github/instructions/general-frontend.instructions.md`（TypeScript 规范；文档注释规范见 development-guide，始终生效）
 - 加载并遵循 `frontend-design` skill 的设计原则（加载 `.github/skills/frontend-design/SKILL.md`）
 - 优先使用 Shadcn/ui 组件（`npx shadcn@latest add <component>` 如未安装）
 - Server Component 优先，仅在需要浏览器 API 或 hooks 时加 `"use client"`
@@ -83,17 +83,7 @@ git checkout main
 
 ---
 
-## Phase 3 — 委托测试
-
-调用 `Tester` 子 agent，传入所有新增/修改的文件路径列表：
-
-> 请为以下文件编写并执行单元测试：[文件列表]
-
-等待 Tester 返回测试报告，如有失败则修复后重试。
-
----
-
-## Phase 4 — 实现报告
+## Phase 3 — 实现报告
 
 返回给 Boss 的报告格式：
 
@@ -110,11 +100,4 @@ git checkout main
 
 ### 已知局限
 - [未实现的边界情况，或 spec 中模糊的地方]
-
-### 测试结果
-[Tester 返回的报告]
 ```
-
----
-
-## Phase 0 — 侦查代码库
