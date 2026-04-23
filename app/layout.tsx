@@ -57,6 +57,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
       <head>
         {/* Prevents light/dark flash by applying data-theme before React hydration */}
