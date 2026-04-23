@@ -1,9 +1,9 @@
 ---
-description: "Use when writing, editing, or reviewing TypeScript or TSX files in this Next.js + Tailwind project. Enforces strict TypeScript, JSDoc documentation on files/functions/hooks/components, and Next.js App Router best practices."
+description: "Use when writing, editing, or reviewing any TypeScript or TSX files. Enforces JSDoc documentation on files/functions/hooks/components, strict TypeScript, accessibility, and consistent component structure."
 applyTo: "**/*.{ts,tsx}"
 ---
 
-# Frontend Coding Standards — Next.js + Tailwind
+# General Frontend Coding Standards
 
 ## 1. File Description
 
@@ -102,40 +102,14 @@ interface ButtonProps { readonly label: string; onClick: () => void; }
 const data: any = await fetch(...);
 ```
 
-## 5. Next.js App Router Conventions
-
-- **Server Components by default.** Only add `"use client"` when you need browser APIs, event handlers, or React hooks.
-- **`"use server"`** only in Server Actions (functions called from client forms or event handlers that run on the server).
-- Use `next/image` (`<Image>`) for all images — never bare `<img>` tags.
-- Use `next/link` (`<Link>`) for all internal navigation — never bare `<a>` tags with local paths.
-- Export page metadata via the `Metadata` API (`export const metadata: Metadata = { ... }`), not with `<head>` tags.
-- Co-locate `loading.tsx`, `error.tsx`, and `not-found.tsx` alongside each route segment that needs them.
-- Prefer `async/await` directly in Server Components over `useEffect`-based data fetching.
-
-## 6. Tailwind CSS Usage
-
-- Use Tailwind utility classes for all styling. Avoid inline `style` props unless animating dynamic values that Tailwind can't express.
-- Use the `cn()` helper (from `clsx` + `tailwind-merge`) for conditional or composed class names.
-- Never hardcode raw color hex values in className; use the design-token aliases defined in `globals.css` / the Tailwind theme.
-- Order classes semantically: layout → sizing → spacing → typography → color → border → effects → responsive/state variants.
-- Prefer responsive variants (`sm:`, `md:`, `lg:`) over JS breakpoint logic.
-
-```tsx
-// Good
-<button className={cn("flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background", isLoading && "opacity-50 cursor-not-allowed")}>
-
-// Bad
-<button style={{ display: "flex", backgroundColor: "#171717" }}>
-```
-
-## 7. Accessibility
+## 5. Accessibility
 
 - Every interactive element must have an accessible label (`aria-label`, `aria-labelledby`, or visible text).
 - Images must have meaningful `alt` text; decorative images use `alt=""`.
 - Use semantic HTML elements (`<button>`, `<nav>`, `<main>`, `<section>`) rather than `<div>` with click handlers.
 - Ensure keyboard navigability: interactive elements must be reachable via Tab and operable via Enter/Space.
 
-## 8. Component Structure Order
+## 6. Component Structure Order
 
 Keep the internals of a component in this order for consistency:
 
@@ -147,7 +121,7 @@ Keep the internals of a component in this order for consistency:
 6. Early returns (loading / error states)
 7. Main JSX return
 
-## 9. Exports
+## 7. Exports
 
 - **Pages and layouts**: use `default export`.
 - **All other components, hooks, and utilities**: use **named exports** to support tree-shaking and easier refactoring.
