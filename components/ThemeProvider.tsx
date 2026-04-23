@@ -15,7 +15,7 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import type { Theme } from "@/types/blog";
+import type { Theme } from "@/types/theme";
 
 interface ThemeContextValue {
   /** The user's active theme preference: 'light', 'dark', or 'auto' (follow system). */

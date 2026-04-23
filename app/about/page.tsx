@@ -1,7 +1,7 @@
-/**
+﻿/**
  * @file page.tsx
- * @description About page — introduces the oh-my-copilot blog's mission and
- * provides a placeholder author bio section.
+ * @description About page — explains why oh-my-copilot was built and introduces
+ * the author. Two sections: "Why I Built This" and "About Me".
  */
 
 import type { Metadata } from "next";
@@ -10,11 +10,11 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About oh-my-copilot — a tech blog for frontend developers, and the person behind it.",
+    "Why oh-my-copilot was built, and the person behind it — Alex Chen, full-stack engineer and open-source contributor.",
 };
 
 /**
- * @description About page with two sections: blog intro and author bio.
+ * @description About page with two sections: project motivation and author bio.
  * @returns Full about page layout.
  */
 export default function AboutPage(): React.JSX.Element {
@@ -28,58 +28,49 @@ export default function AboutPage(): React.JSX.Element {
         </h1>
       </header>
 
-      {/* ── Blog intro ─────────────────────────────────── */}
+      {/* Why I Built This */}
       <section
         className="animate-fade-in-up mb-8"
         style={{ animationDelay: "0.1s" }}
-        aria-labelledby="about-blog-heading"
+        aria-labelledby="why-heading"
       >
         <div className="blog-card relative overflow-hidden rounded-2xl p-8 md:p-12">
-          {/* Accent bar */}
           <div
             className="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl bg-accent"
             aria-hidden="true"
           />
-
           <div className="pl-4">
             <h2
-              id="about-blog-heading"
+              id="why-heading"
               className="mb-6 font-mono text-2xl font-semibold text-foreground"
             >
-              The Blog
+              Why I Built This
             </h2>
-
             <div className="flex flex-col gap-4 leading-relaxed text-(--text-secondary)">
+              <blockquote className="border-l-2 border-accent pl-4 font-mono text-sm text-accent italic">
+                &ldquo;I wanted to turn GitHub Copilot from a tab-completion tool into an actual engineering team.&rdquo;
+              </blockquote>
               <p>
-                <span className="font-mono text-accent">oh-my-copilot</span> is
-                a tech blog for frontend developers. It covers JavaScript,
-                TypeScript, React, and the modern web platform — the things that
-                actually matter when shipping real products.
+                I use <span className="font-mono text-accent">GitHub Copilot</span> every
+                day, but I kept feeling like it wasn&apos;t living up to its potential.
+                Most developers treat it as an autocomplete upgrade. I wanted something
+                different — a structured workflow where specialised agents handle
+                planning, implementation, testing, and review as a coordinated team.
               </p>
               <p>
-                This project was built with{" "}
-                <em className="font-mono not-italic text-foreground">
-                  vibe coding
-                </em>{" "}
-                — a workflow where humans and AI pair-program in real time. The
-                idea: move fast, ship quality, learn openly.
+                After a few weeks studying VS Code&apos;s agent system, I built
+                Boss, Worker, Tester, Objector, and Teacher — each with a clear role
+                and a strict scope. The first time Boss routed a feature request all
+                the way from spec to commit without me writing a line of code, I knew
+                the direction was right.
               </p>
               <p>
-                Every post is a genuine exploration — things that confused me,
-                patterns I discovered, tools I found useful. No SEO padding, no
-                filler. Just the good stuff.
+                This config is open-source because good tooling should be shared. If
+                it helps you ship faster, a star on GitHub is the best thanks.
               </p>
             </div>
-
             <div className="mt-8 flex flex-wrap gap-3">
-              {[
-                "JavaScript",
-                "TypeScript",
-                "React",
-                "Next.js",
-                "CSS",
-                "Tooling",
-              ].map((tag) => (
+              {["VS Code", "GitHub Copilot", "Agent Design", "Next.js", "Go", "Open Source"].map((tag) => (
                 <span
                   key={tag}
                   className="rounded-full border border-(--border-color) bg-(--accent-dim) px-3 py-1 font-mono text-xs text-accent"
@@ -92,60 +83,78 @@ export default function AboutPage(): React.JSX.Element {
         </div>
       </section>
 
-      {/* ── Author bio ─────────────────────────────────── */}
+      {/* About Me */}
       <section
         className="animate-fade-in-up"
         style={{ animationDelay: "0.2s" }}
-        aria-labelledby="about-author-heading"
+        aria-labelledby="author-heading"
       >
         <div className="blog-card rounded-2xl p-8 md:p-12">
           <div className="flex flex-col items-start gap-8 md:flex-row">
-            {/* Avatar placeholder */}
             <div
               className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full border-2 border-(--border-color) bg-surface font-mono text-2xl text-accent md:h-32 md:w-32"
               aria-hidden="true"
             >
               &gt;_
             </div>
-
             <div className="flex flex-col gap-4">
               <h2
-                id="about-author-heading"
+                id="author-heading"
                 className="font-mono text-2xl font-semibold text-foreground"
               >
-                The Author
+                Alex Chen
               </h2>
-
               <div className="flex flex-col gap-3 leading-relaxed text-(--text-secondary)">
                 <p>
-                  <span className="font-mono text-accent">
-                    {"// placeholder"}
-                  </span>{" "}
-                  — Author bio coming soon.
+                  Full-stack engineer focused on{" "}
+                  <span className="font-mono text-accent">Next.js</span> and{" "}
+                  <span className="font-mono text-accent">Go</span>. I work at a
+                  B2B SaaS company by day, and spend evenings on open-source
+                  projects and technical writing.
                 </p>
                 <p>
-                  Frontend developer, tinkerer, and occasional over-engineer.
-                  Interested in the craft of building interfaces that feel right
-                  — responsive, fast, accessible, and a little beautiful.
+                  I&apos;m interested in developer tooling, AI-assisted workflows, and
+                  the craft of building interfaces that feel genuinely good to use —
+                  fast, accessible, and a little beautiful.
                 </p>
                 <p>
-                  When not writing code, probably reading about it. Or reading
-                  about reading about it.
+                  oh-my-copilot is my most-used personal project. I rely on it for
+                  every feature I ship.
                 </p>
               </div>
-
-              <div className="mt-2">
-                <Link
-                  href="/blog"
+              <div className="mt-2 flex items-center gap-4">
+                <a
+                  href="#"
+                  aria-label="Alex Chen on GitHub"
                   className="font-mono text-sm text-accent transition-colors hover:underline"
                 >
-                  Read the Blog →
-                </Link>
+                  GitHub &rarr;
+                </a>
+                <a
+                  href="#"
+                  aria-label="Alex Chen on Twitter"
+                  className="font-mono text-sm text-(--text-muted) transition-colors hover:text-accent"
+                >
+                  Twitter &rarr;
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* CTA */}
+      <div
+        className="animate-fade-in-up mt-12 text-center"
+        style={{ animationDelay: "0.3s" }}
+      >
+        <Link
+          href="/get-started"
+          className="inline-block rounded-lg bg-accent px-7 py-3 font-mono text-sm font-semibold text-[#060d1a] transition-opacity hover:opacity-85"
+        >
+          Get Started &rarr;
+        </Link>
+      </div>
     </div>
   );
 }

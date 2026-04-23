@@ -1,7 +1,7 @@
-/**
+﻿/**
  * @file page.tsx
- * @description Get Started page — explains how to use the oh-my-copilot .github
- * configuration to supercharge VS Code Copilot for vibe coding workflows.
+ * @description Get Started page — three steps to activating the oh-my-copilot
+ * configuration: prerequisites, fork and checkout, then start chatting with Boss.
  */
 
 import type { Metadata } from "next";
@@ -10,17 +10,13 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Get Started",
   description:
-    "Learn how to use the oh-my-copilot .github config to unlock enhanced Copilot workflows for vibe coding.",
+    "Three steps to activating oh-my-copilot: VS Code, a Copilot subscription, and two git commands.",
 };
 
 interface StepProps {
-  /** Step number (1-based). */
   readonly number: number;
-  /** Short step label. */
   readonly label: string;
-  /** Step description. */
   readonly description: React.ReactNode;
-  /** Optional code snippet or terminal command. */
   readonly code?: string;
 }
 
@@ -29,33 +25,21 @@ interface StepProps {
  * @param props - {@link StepProps}
  * @returns A styled step card.
  */
-function Step({
-  number,
-  label,
-  description,
-  code,
-}: StepProps): React.JSX.Element {
+function Step({ number, label, description, code }: StepProps): React.JSX.Element {
   return (
     <div
       className="animate-fade-in-up blog-card relative overflow-hidden rounded-2xl p-8"
       style={{ animationDelay: `${number * 0.1}s` }}
     >
-      {/* Step number accent */}
       <div
         className="absolute right-6 top-6 font-mono text-6xl font-bold opacity-[0.06] text-accent select-none"
         aria-hidden="true"
       >
         {String(number).padStart(2, "0")}
       </div>
-
       <p className="mb-1 font-mono text-xs text-accent">// step {number}</p>
-      <h3 className="mb-3 font-mono text-xl font-semibold text-foreground">
-        {label}
-      </h3>
-      <div className="text-(--text-secondary) leading-relaxed">
-        {description}
-      </div>
-
+      <h3 className="mb-3 font-mono text-xl font-semibold text-foreground">{label}</h3>
+      <div className="text-(--text-secondary) leading-relaxed">{description}</div>
       {code && (
         <div className="mt-4 rounded-lg bg-surface border border-(--border-color) px-4 py-3 font-mono text-sm text-accent overflow-x-auto">
           <span className="text-(--text-muted) select-none mr-2">$</span>
@@ -66,164 +50,123 @@ function Step({
   );
 }
 
-interface FileItemProps {
-  /** File path relative to the repo root. */
-  readonly path: string;
-  /** Brief description of what this file does. */
-  readonly description: string;
-  /** Optional badge text (e.g. "always active"). */
-  readonly badge?: string;
-}
-
 /**
- * @description A single config file listed in the directory overview.
- * @param props - {@link FileItemProps}
- * @returns A styled file row.
- */
-function FileItem({
-  path,
-  description,
-  badge,
-}: FileItemProps): React.JSX.Element {
-  return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4 py-3 border-b border-(--border-color) last:border-0">
-      <span className="shrink-0 font-mono text-sm text-accent">{path}</span>
-      <span className="flex-1 text-sm text-(--text-secondary)">
-        {description}
-      </span>
-      {badge && (
-        <span className="shrink-0 rounded-full bg-(--accent-dim) border border-(--border-color) px-2 py-0.5 font-mono text-xs text-(--text-muted)">
-          {badge}
-        </span>
-      )}
-    </div>
-  );
-}
-
-/**
- * @description Get Started page explaining the .github vibe coding config.
+ * @description Get Started page with three prerequisite steps for activating
+ * the oh-my-copilot configuration in a VS Code project.
  * @returns Full get-started page layout.
  */
 export default function GetStartedPage(): React.JSX.Element {
   return (
     <div className="mx-auto w-full max-w-4xl px-6 py-16">
-      {/* ── Page header ────────────────────────────────── */}
+      {/* Page header */}
       <header className="animate-fade-in-up mb-16">
         <p className="mb-2 font-mono text-xs text-accent">// init</p>
         <h1 className="font-mono text-4xl font-bold text-foreground md:text-5xl">
           Get Started
         </h1>
         <p className="mt-4 text-lg text-(--text-secondary) leading-relaxed max-w-2xl">
-          The <span className="font-mono text-accent">.github/</span> folder in
-          this repo is a ready-to-fork Copilot enhancement kit. Drop it into any
-          project and instantly unlock structured instructions, skills, and
-          agents for high-quality vibe coding.
+          Three steps. Two git commands. One{" "}
+          <span className="font-mono text-accent">$10/month</span> subscription.
+          That is all it takes to activate a full agent engineering team in VS Code.
         </p>
       </header>
 
-      {/* ── What's inside ──────────────────────────────── */}
+      {/* Prerequisites callout */}
       <section
-        className="animate-fade-in-up mb-16"
-        style={{ animationDelay: "0.1s" }}
-        aria-labelledby="config-heading"
+        className="animate-fade-in-up mb-12"
+        style={{ animationDelay: "0.05s" }}
+        aria-labelledby="prereqs-heading"
       >
-        <p className="mb-1 font-mono text-xs text-accent">// ls .github/</p>
-        <h2
-          id="config-heading"
-          className="mb-6 font-mono text-2xl font-semibold text-foreground"
-        >
-          What&apos;s Inside
-        </h2>
-
-        <div className="blog-card rounded-2xl p-8">
-          <FileItem
-            path=".github/instructions/*.instructions.md"
-            description="Always-on coding rules Copilot follows in every conversation — style, conventions, security."
-            badge="always active"
-          />
-          <FileItem
-            path=".github/skills/*/SKILL.md"
-            description="Reusable domain workflows (frontend design, testing, feature work) loaded on demand."
-            badge="on demand"
-          />
-          <FileItem
-            path=".github/agents/*.agent.md"
-            description="Specialized sub-agents — Worker, Teacher, Objector — each with a distinct role and expertise."
-          />
-          <FileItem
-            path="AGENTS.md"
-            description="Project-level facts: monorepo layout, commands, architecture, and conventions for the AI to follow."
-          />
+        <div className="blog-card rounded-xl p-6">
+          <p className="mb-3 font-mono text-xs text-accent">// prerequisites</p>
+          <h2
+            id="prereqs-heading"
+            className="mb-4 font-mono text-base font-semibold text-foreground"
+          >
+            Before you start, you need:
+          </h2>
+          <ul className="flex flex-col gap-2">
+            {[
+              { check: "VS Code", detail: "Any recent version. The agent system is built into Copilot Chat." },
+              {
+                check: "GitHub Copilot subscription",
+                detail: "Individual plan ($10/mo). Copilot Chat and Agent mode must be enabled.",
+              },
+              {
+                check: "A GitHub account",
+                detail: "Needed to fork the repo and push your own projects.",
+              },
+            ].map(({ check, detail }) => (
+              <li key={check} className="flex items-start gap-2 text-sm text-(--text-secondary)">
+                <span className="shrink-0 text-accent font-mono mt-0.5">✓</span>
+                <span>
+                  <span className="font-mono text-foreground">{check}</span> — {detail}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* ── Steps ──────────────────────────────────────── */}
+      {/* Steps */}
       <section aria-labelledby="steps-heading" className="mb-16">
-        <p className="mb-1 font-mono text-xs text-accent">// how-to</p>
+        <p className="mb-1 font-mono text-xs text-accent">// setup</p>
         <h2
           id="steps-heading"
           className="mb-6 font-mono text-2xl font-semibold text-foreground"
         >
-          Setup in 3 Steps
+          Three Steps
         </h2>
 
         <div className="flex flex-col gap-6">
           <Step
             number={1}
-            label="Fork or clone this repo"
+            label="Fork the repo and check out copilot-settings"
             description={
               <p>
-                Start by forking{" "}
-                <span className="font-mono text-accent">oh-my-copilot</span> on
-                GitHub or clone the{" "}
-                <span className="font-mono text-accent">.github/</span> folder
-                directly into your own project. The config is self-contained —
-                no extra dependencies required.
+                Fork <span className="font-mono text-accent">oh-my-copilot</span> on
+                GitHub, then locally check out the{" "}
+                <span className="font-mono text-accent">copilot-settings</span> branch.
+                This branch contains only the{" "}
+                <span className="font-mono text-accent">.github/</span> directory — no
+                app code, no dependencies.
               </p>
             }
-            code="git clone https://github.com/your-handle/oh-my-copilot"
+            code="git clone https://github.com/YOUR_HANDLE/oh-my-copilot -b copilot-settings"
           />
 
           <Step
             number={2}
-            label="Open in VS Code with Copilot"
+            label="Copy .github/ into your project"
             description={
               <p>
-                Make sure{" "}
-                <span className="font-mono text-accent">GitHub Copilot</span>{" "}
-                (Chat) is installed and signed in. VS Code automatically picks
-                up{" "}
-                <span className="font-mono text-accent">
-                  .github/instructions/
-                </span>{" "}
-                and applies them to every chat message. No configuration step
-                needed.
+                Copy the entire{" "}
+                <span className="font-mono text-accent">.github/</span> folder from
+                the cloned repo into the root of your own project. VS Code and
+                Copilot will automatically pick up all instructions, skills, agents,
+                and prompts inside it — no extra configuration required.
               </p>
             }
-            code="code ."
+            code="cp -r oh-my-copilot/.github/ your-project/"
           />
 
           <Step
             number={3}
-            label="Start vibe coding"
+            label="Open Agent mode and talk to Boss"
             description={
               <>
                 <p className="mb-3">
-                  Open a Copilot chat and start describing what you want to
-                  build. Use{" "}
-                  <span className="font-mono text-accent">Worker</span> mode to
-                  implement full features end-to-end,{" "}
-                  <span className="font-mono text-accent">Teacher</span> to
-                  understand any concept, and{" "}
-                  <span className="font-mono text-accent">Objector</span> to get
-                  adversarial code review before shipping.
+                  Open your project in VS Code. In Copilot Chat, switch to{" "}
+                  <span className="font-mono text-accent">Agent</span> mode and
+                  select the <span className="font-mono text-accent">Boss</span>{" "}
+                  agent. Describe what you want to build in plain language — Boss
+                  will route your request to the right agent workflow automatically.
                 </p>
                 <p>
-                  Skills like{" "}
-                  <span className="font-mono text-accent">frontend-design</span>{" "}
-                  and{" "}
-                  <span className="font-mono text-accent">webapp-testing</span>{" "}
-                  load automatically when the task requires them.
+                  Try starting with:{" "}
+                  <span className="font-mono text-accent">
+                    &ldquo;I want to add user authentication to my app.&rdquo;
+                  </span>
                 </p>
               </>
             }
@@ -231,79 +174,26 @@ export default function GetStartedPage(): React.JSX.Element {
         </div>
       </section>
 
-      {/* ── Tips ───────────────────────────────────────── */}
-      <section
-        className="animate-fade-in-up mb-16"
-        style={{ animationDelay: "0.4s" }}
-        aria-labelledby="tips-heading"
-      >
-        <p className="mb-1 font-mono text-xs text-accent">// pro-tips</p>
-        <h2
-          id="tips-heading"
-          className="mb-6 font-mono text-2xl font-semibold text-foreground"
-        >
-          Tips for Best Results
-        </h2>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          {[
-            {
-              title: "Keep AGENTS.md current",
-              body: "Update it whenever your stack or conventions change. It's the AI's map of your project.",
-            },
-            {
-              title: "Write feature specs first",
-              body: "Ask Worker to write a spec before coding. Review it, then say 'ok' — this prevents scope creep.",
-            },
-            {
-              title: "Use Objector before shipping",
-              body: "Run adversarial review on critical features. It catches security, UX, and edge-case issues early.",
-            },
-            {
-              title: "Trust the skills",
-              body: "Skills encode months of prompt engineering. Don't override them unless you know what you're doing.",
-            },
-          ].map(({ title, body }) => (
-            <div key={title} className="blog-card rounded-xl p-6">
-              <h3 className="mb-2 font-mono text-sm font-semibold text-accent">
-                {title}
-              </h3>
-              <p className="text-sm text-(--text-secondary) leading-relaxed">
-                {body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CTA ────────────────────────────────────────── */}
-      <footer
+      {/* CTA */}
+      <div
         className="animate-fade-in-up blog-card rounded-2xl p-8 text-center"
-        style={{ animationDelay: "0.5s" }}
+        style={{ animationDelay: "0.45s" }}
       >
-        <p className="mb-2 font-mono text-xs text-accent">// ready?</p>
+        <p className="mb-2 font-mono text-xs text-accent">// next</p>
         <h2 className="mb-4 font-mono text-2xl font-semibold text-foreground">
-          Ready to ship?
+          Understand the system
         </h2>
         <p className="mb-6 text-(--text-secondary)">
-          Read the blog posts for real examples, or visit the About page to
-          understand the philosophy behind this project.
+          Read How It Works to understand the three routing scenarios and what each
+          agent specialises in — before you start your first session.
         </p>
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <Link
-            href="/blog"
-            className="rounded-lg bg-accent px-6 py-3 font-mono text-sm font-semibold text-[#060d1a] transition-opacity hover:opacity-85"
-          >
-            /blog
-          </Link>
-          <Link
-            href="/about"
-            className="rounded-lg border border-(--border-color) px-6 py-3 font-mono text-sm text-(--text-secondary) transition-all hover:border-accent hover:text-accent"
-          >
-            /about
-          </Link>
-        </div>
-      </footer>
+        <Link
+          href="/how-it-works"
+          className="inline-block rounded-lg bg-accent px-7 py-3 font-mono text-sm font-semibold text-[#060d1a] transition-opacity hover:opacity-85"
+        >
+          How It Works &rarr;
+        </Link>
+      </div>
     </div>
   );
 }

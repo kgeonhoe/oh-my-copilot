@@ -3,6 +3,7 @@
  * @description Site-wide navigation bar rendered as a Server Component.
  * Fixed to the top of the viewport with a frosted-glass backdrop.
  * Contains the site logo, primary nav links, and the client-side ThemeSelector.
+ * Links: Home / Get Started / How It Works / Showcase / Changelog / About
  */
 
 import Link from "next/link";
@@ -42,10 +43,22 @@ export default function Navbar(): React.JSX.Element {
               /get-started
             </Link>
             <Link
-              href="/blog"
+              href="/how-it-works"
               className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
             >
-              /blog
+              /how-it-works
+            </Link>
+            <Link
+              href="/showcase"
+              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+            >
+              /showcase
+            </Link>
+            <Link
+              href="/changelog"
+              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+            >
+              /changelog
             </Link>
             <Link
               href="/about"

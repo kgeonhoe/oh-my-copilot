@@ -9,7 +9,7 @@
 
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/components/ThemeProvider";
-import type { Theme } from "@/types/blog";
+import type { Theme } from "@/types/theme";
 
 interface ThemeButtonProps {
   /** The theme value this button represents. */
