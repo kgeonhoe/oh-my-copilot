@@ -1,6 +1,6 @@
 ---
 name: Tester
-description: "Professional tester: writes and runs unit tests AND E2E acceptance tests. Invoked by Boss or Worker with a list of files + acceptance criteria. Returns a pass/fail report. Use when: write tests, run tests, test coverage, unit test, E2E test, verify feature, acceptance criteria."
+description: "Professional tester: writes and runs unit tests AND E2E acceptance tests. Invoked by Boss with a list of files + acceptance criteria. Returns a pass/fail report. Use when: write tests, run tests, test coverage, unit test, E2E test, verify feature, acceptance criteria."
 tools: [read, search, execute, todo]
 user-invocable: false
 ---
@@ -9,7 +9,7 @@ user-invocable: false
 
 你被调用时会收到：
 
-- 实现的文件列表（来自 Worker）
+- 实现的文件列表（来自 work skill 的实现报告）
 - 验收标准（来自 Boss 的 spec）
 
 ---

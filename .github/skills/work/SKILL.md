@@ -1,157 +1,143 @@
----
+﻿---
 name: work
 description: "Implement a new feature in this Next.js + Tailwind project. Use when adding a feature from a markdown spec: abstract logic, define API/data flow, audit existing code for reuse, decompose into small parts, implement, write unit tests, then update the spec with findings."
-argument-hint: "Path to feature markdown spec (e.g. docs/my-feature.md)"
+argument-hint: "Path to feature spec (e.g. .github/features/my-feature/index.md)"
 ---
 
 # Feature Implementation Workflow
 
-A structured, end-to-end procedure for shipping a new feature in this Next.js + Tailwind (App Router) codebase. Follow every phase in order — do not skip ahead.
+你是当前对话中的全栈工程师角色，负责将 spec 文档变成干净可运行的代码。你在 Boss 的上下文中运行，**共享完整的对话历史**，不需要通过 spec 重新理解需求背景。
+
+技术栈：**Next.js 15 App Router + Tailwind + Shadcn/ui**（前端）+ **Go + Gin**（后端，如涉及）。
 
 ---
 
-## Phase 1 — Read and Abstract the Feature Spec
+## 第一步 — 确认分支
 
-> The spec may arrive as an attached file, inline context, a user message, or session memory. Use whatever is provided as the source of truth. **Do not open or re-read the markdown file** — that is reserved for the final update in Phase 7.
+确认当前在 `main` 分支（Boss 的场景 1 流程已完成分支切换，通常已就绪）：
 
-1. Internalize the feature spec from the provided context (attachment, argument, or memory).
-2. Extract and restate in your own words:
-   - **Goal** — the user-facing outcome in one sentence.
-   - **Scope** — what is explicitly in / out of scope.
-   - **Constraints** — performance, accessibility, auth, business rules.
-   - **Acceptance criteria** — what "done" looks like, ideally as a checklist.
-3. If anything is ambiguous, ask for clarification **before** proceeding.
-
----
-
-## Phase 2 — Define the API and Data Flow
-
-Model the feature as a data pipeline before touching any code:
-
-```
-User action
-  -> UI event handler
-  -> [optional] Client state update (useState / useReducer / context / store)
-  -> [optional] Server Action or API Route call
-       -> Input validation (zod / yup)
-       -> Business logic
-       -> Data layer (DB / external API)
-       -> Response shape
-  -> UI re-render / toast / redirect
+```bash
+git branch --show-current
 ```
 
-Write this diagram explicitly. Include:
+---
 
-- **Props** flowing into new components (name, type, required/optional).
-- **Server Actions or Route Handlers** (path, HTTP method, request/response shape).
-- **State shape** if any client state is introduced.
-- **Error paths** — what happens when each step fails.
+## Phase 0 — 侦查代码库
 
-Refer to [feature-checklist.md](./references/feature-checklist.md) for API design rules.
+读取以下文件，了解现状（利用对话中已有的上下文，跳过已知内容）：
+
+1. spec 文档（`.github/features/<name>/index.md`）
+2. `AGENTS.md` — 项目约束
+3. `.github/instructions/nextjs-tailwind.instructions.md` — 前端规范
+4. `.github/instructions/general-frontend.instructions.md` — TypeScript 规范
+5. `.github/instructions/go-gin.instructions.md` — 后端规范（如涉及后端）
+6. `app/` 目录结构 — 现有路由
+7. `components/`、`lib/`、`types/` — 可复用模块
+8. `server/` — 后端现有代码（如存在）
+9. `package.json` — 可用依赖
+
+对每个找到的候选模块，判断：**直接复用**、**扩展**、还是**新建**。
 
 ---
 
-## Phase 3 — Audit Existing Code for Reuse
+## Phase 1 — 拆解实现计划
 
-Search the codebase before writing anything new:
+将 spec 拆解为独立可测试的实现单元，按以下顺序排列：
 
-| What to look for                                       | Where to look                          |
-| ------------------------------------------------------ | -------------------------------------- |
-| UI primitives (Button, Input, Modal, Card…)            | `components/ui/`, `app/`               |
-| Data-fetching hooks (`useQuery`, `useSWR`, custom)     | `hooks/`, `lib/`                       |
-| Server utilities (auth helpers, DB client, validators) | `lib/`, `server/`                      |
-| Shared types / interfaces                              | `types/`, co-located `*.types.ts`      |
-| Tailwind tokens / design patterns                      | `globals.css`, `tailwind.config.*`     |
-| Existing similar pages or layouts                      | `app/**/page.tsx`, `app/**/layout.tsx` |
+```
+纯函数 / 工具函数
+  → 类型定义
+  → 后端 API（Gin Handler + 路由注册）
+  → 前端数据层（Server Actions / fetch utils）
+  → 自定义 Hooks
+  → UI 组件（从叶子到容器）
+  → 页面（Page / Layout）
+```
 
-For **every** found candidate, decide: **reuse as-is**, **extend**, or **create new**. Document the decision.
-
----
-
-## Phase 4 — Decompose into Small, Flexible Parts
-
-Split the feature into independently testable units before writing code:
-
-1. **Pure functions** — data transforms, validators, formatters → `lib/` or co-located `*.utils.ts`.
-2. **Custom hooks** — encapsulate stateful logic, side effects, data fetching → `hooks/use-*.ts`.
-3. **Server Actions / Route Handlers** — one action per mutation, one route per resource.
-4. **UI components** — one component per visual responsibility, smallest possible props surface.
-5. **Page / layout** — composition only; no logic beyond routing and data fetching.
-
-Name each part, state its single responsibility, and note its inputs/outputs before coding.
+**列出每个文件的路径和职责，再开始写代码。**
 
 ---
 
-## Phase 5 — Implement
+## Phase 2 — 实现
 
-Work through the parts bottom-up (utilities → hooks → server actions → components → page):
+按 Phase 1 的顺序自底向上实现，**不跳步骤**。
 
-### Coding standards (this project)
+### 前端规范
 
-- Strict TypeScript — no `any`, use `unknown` + type guards.
-- `import type` for type-only imports.
-- Every exported function, component, and hook must have a JSDoc block (`@description`, `@param`, `@returns`).
-- Every `useState`, `useEffect`, `useRef`, `useMemo`, `useCallback` must have an inline comment.
-- Server Components by default; add `"use client"` only when interactivity requires it.
-- Tailwind utility classes only — no inline `style={}` for layout/spacing/color.
-- Accessible markup: semantic HTML, `aria-*` where needed, keyboard navigable.
+- 遵循 `.github/instructions/nextjs-tailwind.instructions.md`
+- 遵循 `.github/instructions/general-frontend.instructions.md`（文档注释规范见 development-guide，始终生效）
+- 加载并遵循 `.github/skills/frontend-design/SKILL.md` 的设计原则
+- 优先使用 Shadcn/ui 组件（`npx shadcn@latest add <component>` 如未安装）
+- Server Component 优先，仅在需要浏览器 API 或 hooks 时加 `"use client"`
+- 所有图片用 `next/image`，所有内部链接用 `next/link`
+- 样式用 Tailwind utilities + `cn()`，不用 inline style
 
-### Checklist per file
+### 后端规范
 
-- [ ] JSDoc file header added.
-- [ ] All exported symbols documented.
-- [ ] No `any` types.
-- [ ] No unused imports.
-- [ ] Tailwind classes follow project token conventions.
-- [ ] `"use client"` present only where needed.
+- 遵循 `.github/instructions/go-gin.instructions.md`
+- Handler 只做请求解析 + 调用 Service + 返回响应，业务逻辑放 Service 层
+- 所有 Handler 必须有错误处理，返回统一的 JSON 错误格式
+- 新路由在路由文件中注册，不在 main.go 里散写
 
----
+### 通用规范
 
-## Phase 6 — Write Unit Tests
+- 每个文件有 JSDoc / GoDoc 文件头说明
+- 无 `any` 类型（TypeScript），无 `interface{}` 滥用（Go）
+- 只实现 spec 里描述的内容，不加额外功能
 
-For every **pure function** and **custom hook** created:
+### 每个文件的 checklist
 
-1. Co-locate tests: `*.test.ts` / `*.test.tsx` next to the source file.
-2. Test structure — Arrange / Act / Assert with descriptive `describe` + `it` blocks.
-3. Cover:
-   - **Happy path** — expected input produces expected output.
-   - **Edge cases** — empty, null, boundary values.
-   - **Error paths** — thrown errors, rejected promises, validation failures.
-4. For hooks, use `@testing-library/react`'s `renderHook`.
-5. For components, use `@testing-library/react` — query by role/label, not by class.
-6. Mock external dependencies (fetch, DB, auth) at the module boundary.
-7. Run the test suite; confirm all new tests pass and no existing tests regress.
+- [ ] JSDoc / GoDoc 文件头
+- [ ] 所有导出符号有文档注释
+- [ ] 无 `any` 类型
+- [ ] 无多余 import
+- [ ] Tailwind 类名遵循项目 token 约定
+- [ ] `"use client"` 仅在必要处出现
 
 ---
 
-## Phase 7 — Update the Feature Markdown
+## Phase 3 — 更新 Spec 文档
 
-After implementation is complete, re-open the original spec markdown and append a `## Implementation Notes` section:
+实现完成后，在 spec 文档（`.github/features/<name>/index.md`）末尾追加 `## Implementation Notes` 章节：
 
 ```markdown
 ## Implementation Notes
 
 ### Decisions & Deviations
 
-- [What was done differently from the spec and why]
+- [与 spec 不同的地方及原因]
 
 ### Reused Components / Utilities
 
-- `ComponentName` — [why it was reused / how it was extended]
+- `ComponentName` — [为何复用 / 如何扩展]
 
 ### New Abstractions Introduced
 
-- `lib/foo.utils.ts` — [what it does and why it was extracted]
+- `lib/foo.ts` — [做什么，为何抽象]
 
 ### Known Gaps / Follow-ups
 
-- [Anything left out of scope, tech debt incurred, or future work]
-
-### Data Flow (actual)
-
-[Updated diagram if it diverged from Phase 2]
+- [范围外的内容、技术债、后续工作]
 ```
 
-Do **not** delete original spec content — append only.
+**追加，不删除原有内容。**
 
 ---
+
+## Phase 4 — 实现报告
+
+向 Boss 返回结构化报告：
+
+```
+## 实现报告
+
+### 新增 / 修改 / 删除的文件
+- `path/to/file.tsx` — [职责描述]
+- `server/handler/xxx.go` — [职责描述]
+
+### 关键决策
+- [非显而易见的技术选择 + 原因]
+
+### 已知局限
+- [未实现的边界情况，或 spec 中模糊的地方]
+```
