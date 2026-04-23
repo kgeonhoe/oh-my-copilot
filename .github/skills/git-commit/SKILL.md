@@ -16,13 +16,33 @@ Stages all changes, inspects the diff, generates a Conventional Commits message,
 
 ## Procedure
 
-### 1. Stage Everything
+### 1. 确认当前分支及变更范围
+
+```bash
+git branch --show-current
+```
+
+根据当前分支，校验本次变更是否合规：
+
+| 分支               | 允许的变更                                                                                         | 禁止的变更                  |
+| ------------------ | -------------------------------------------------------------------------------------------------- | --------------------------- |
+| `main`             | 业务代码（`app/`、`components/`、`lib/`、`server/`、`docs/` 等）；或 merge `copilot-settings` 分支 | `.github/` 目录下的任何文件 |
+| `copilot-settings` | 仅限 `.github/` 目录下的文件（agents、instructions、skills 等）                                    | 所有 `.github/` 之外的文件  |
+
+**为什么要分两个分支？**
+
+- `main`：vibe coding 实践分支，面向 visitor 展示 vibe coding 的结果。只存业务代码。
+- `copilot-settings`：Copilot 配置复用分支，供他人 fork 后直接复用这套配置。不能混入业务代码，否则别人 fork 时会带走不必要的内容。
+
+如果变更内容违反上述规则，**立即停止**，告知用户并建议切换到正确的分支后再继续。
+
+### 2. Stage Everything
 
 ```bash
 git add -A
 ```
 
-### 2. Review the Staged Diff
+### 3. Review the Staged Diff
 
 ```bash
 git diff --staged --stat
@@ -32,7 +52,7 @@ Read the stat output to understand which files changed and in what direction (ad
 
 If nothing is staged (empty output), stop and inform the user — there is nothing to commit.
 
-### 3. Generate the Commit Message
+### 4. Generate the Commit Message
 
 Use the diff stat (and optionally the full diff for non-obvious changes) to compose a message following [Conventional Commits](https://www.conventionalcommits.org/):
 
@@ -64,7 +84,7 @@ Use the diff stat (and optionally the full diff for non-obvious changes) to comp
 - Body is optional — include only for non-obvious decisions or breaking changes
 - No period at the end of the summary line
 
-### 4. Commit
+### 5. Commit
 
 ```bash
 git commit -m "<type>(<scope>): <summary>"
@@ -76,7 +96,7 @@ If there is a meaningful body, use:
 git commit -m "<type>(<scope>): <summary>" -m "- decision 1\n- decision 2"
 ```
 
-### 5. Confirm
+### 6. Confirm
 
 ```bash
 git log --oneline -1

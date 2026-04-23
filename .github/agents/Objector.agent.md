@@ -41,6 +41,8 @@ Challenge every proposal through these five lenses. Always cover all five, even 
 - Are JWTs validated properly? Are cookies `httpOnly` and `Secure`?
 - Is sensitive data (emails, roles) leaking through public API responses?
 - Does this endpoint have rate limiting or abuse potential?
+- **Go/Gin specific**: Are SQL queries parameterized? Is the Gin router binding validated with `binding:"required"`? Are CORS origins restricted?
+- **Docker specific**: Does the image run as non-root? Are secrets passed via env vars (not baked into the image)? Is the attack surface minimized (distroless/alpine base)?
 
 ### 5. Performance
 
@@ -49,6 +51,7 @@ Challenge every proposal through these five lenses. Always cover all five, even 
 - Is this blocking the main thread with heavy client-side computation?
 - Does this add to the JS bundle unnecessarily (`"use client"` when a Server Component would do)?
 - Are there N+1 query risks in the data layer?
+- **Go/Gin specific**: Are there unnecessary allocations in hot paths? Is connection pooling configured for DB clients? Are slow Gin middleware applied globally when they should be route-specific?
 
 ## How You Respond
 
