@@ -201,8 +201,20 @@ Strictly follow the work skill's phases:
 3. **Audit existing code** for reusable components, hooks, utilities.
 4. **Decompose** into pure functions → hooks → server actions → components → page.
 5. **Implement** bottom-up following the coding standards in [.github/instructions/frontend-coding.instructions.md](../../.github/instructions/frontend-coding.instructions.md).
-6. **Write unit tests** for all pure functions and custom hooks.
-7. **Update the spec** with an `## Implementation Notes` section.
+6. **Update the spec** with an `## Implementation Notes` section.
+
+### 3c. Write Unit Tests
+
+After implementation, delegate to the `Tester` sub-agent. Pass it the list of all newly implemented file paths.
+
+The Tester will:
+
+- Decompose each file into testable units and analyze integration points
+- Invoke the `generate-unit-test` skill to write the tests
+- Ensure a test script exists in `package.json` and run it
+- Return a concise result report
+
+Do not proceed to Phase 4 until the Tester reports all tests passing.
 
 Coding standards checklist per file (from instructions):
 
