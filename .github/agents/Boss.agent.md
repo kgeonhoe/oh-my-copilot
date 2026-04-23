@@ -23,7 +23,10 @@ argument-hint: "告诉我你想做什么（新功能、改bug、调流程、或�
 
 ```bash
 git checkout main
+git merge copilot-settings --no-edit
 ```
+
+将 `copilot-settings` 分支的最新 Copilot 配置合并进来，确保业务实现始终基于最新的 agent/instruction/skill 规范。
 
 ### 1.1 侦查代码库现状
 
