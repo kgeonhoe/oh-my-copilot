@@ -16,25 +16,25 @@ Stages all changes, inspects the diff, generates a Conventional Commits message,
 
 ## Procedure
 
-### 1. 确认当前分支及变更范围
+### 1. Confirm Current Branch and Scope of Changes
 
 ```bash
 git branch --show-current
 ```
 
-根据当前分支，校验本次变更是否合规：
+Verify if the current changes are compliant based on the branch:
 
-| 分支               | 允许的变更                                                                                         | 禁止的变更                  |
-| ------------------ | -------------------------------------------------------------------------------------------------- | --------------------------- |
-| `main`             | 业务代码（`app/`、`components/`、`lib/`、`server/`、`docs/` 等）；或 merge `copilot-settings` 分支 | `.github/` 目录下的任何文件 |
-| `copilot-settings` | 仅限 `.github/` 目录下的文件（agents、instructions、skills 等）                                    | 所有 `.github/` 之外的文件  |
+| Branch             | Allowed Changes                                                                                               | Forbidden Changes                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `main`             | Business code (`app/`, `components/`, `lib/`, `server/`, `docs/`, etc.); or merging `copilot-settings` branch | Any file under `.github/` directory |
+| `copilot-settings` | Only files under `.github/` directory (agents, instructions, skills, etc.)                                    | All files outside `.github/`        |
 
-**为什么要分两个分支？**
+**Why two branches?**
 
-- `main`：vibe coding 实践分支，面向 visitor 展示 vibe coding 的结果。只存业务代码。
-- `copilot-settings`：Copilot 配置复用分支，供他人 fork 后直接复用这套配置。不能混入业务代码，否则别人 fork 时会带走不必要的内容。
+- `main`: Vibe coding practice branch, showcasing vibe coding results to visitors. Only stores business code.
+- `copilot-settings`: Copilot configuration reuse branch, so others can fork and directly reuse these settings. It must not mix business code, otherwise irrelevant content is included when forked.
 
-如果变更内容违反上述规则，**立即停止**，告知用户并建议切换到正确的分支后再继续。
+If the changes violate the rules above, **stop immediately**, inform the user, and suggest switching to the correct branch before proceeding.
 
 ### 2. Stage Everything
 
