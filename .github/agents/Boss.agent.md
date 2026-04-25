@@ -97,17 +97,17 @@ The Objector will:
 1. Dynamically discover pages and interactions to test
 2. Call the `webapp-testing` skill to capture screenshots into `features/<feature-name>/objector-evidence/`
 3. Analyze results across design, SEO, extensibility, security, and performance lenses
-4. Write findings to `features/<feature-name>/objector-summary.md`
+4. Return the full review report as its output
 
-Wait for Objector to confirm the summary file is written.
+Wait for Objector to return the report.
 
 ### 1.5.1 Commit All Changes
 
-Invoke the `git-commit` skill (`.github/skills/git-commit/SKILL.md`) to stage and commit everything: the implementation files, the Playwright capture script, the evidence screenshots, and the Objector summary.
+Invoke the `git-commit` skill (`.github/skills/git-commit/SKILL.md`) to stage and commit everything: the implementation files, the Playwright capture script, and the evidence screenshots.
 
 ### 1.6 Re-think with Summary Report
 
-Read `features/<feature-name>/objector-summary.md`. Integrate its findings into the final response:
+Integrate the Objector's returned report into the final response (it is already in context — no file read needed):
 
 ```
 ## Completion Status

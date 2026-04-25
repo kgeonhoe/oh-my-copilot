@@ -164,9 +164,9 @@ Read source files silently (do NOT execute code). Challenge through these four l
 
 ---
 
-## Phase 5 — Write Summary
+## Phase 5 — Return Summary
 
-Write the complete review to `features/<feature-name>/objector-summary.md` using the `edit` tool.
+Output the complete review as your final response — do NOT write it to a file. Boss receives it directly from your return value.
 
 Use this exact format:
 
