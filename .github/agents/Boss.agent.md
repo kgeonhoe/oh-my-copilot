@@ -21,10 +21,10 @@ Upon receiving a user message, determine which scenario it belongs to before tak
 
 ### 1.0 Switch Branch
 
-`bash
+```bash
 git checkout main
 git merge copilot-settings --no-edit
-`
+```
 
 Merge the latest Copilot configurations from the copilot-settings branch to ensure logic implementations are based on the latest agent/instruction/skill specifications.
 
@@ -52,10 +52,9 @@ Ask questions if in doubt. **Do not write code if unsure.**
 
 ### 1.3 Write Spec Document
 
-Document the discussion conclusions into features/<feature-name>/index.md, containing:
+Document the discussion conclusions into `features/<feature-name>/index.md`, containing:
 
-`markdown
-
+```markdown
 # Feature: <Name>
 
 ## Goal and Background
@@ -75,8 +74,7 @@ Document the discussion conclusions into features/<feature-name>/index.md, conta
 ## Edge Cases & Error States
 
 ## Open Questions
-
-`
+```
 
 Present it to the user and wait for their "ok" response before proceeding.
 
@@ -100,20 +98,16 @@ Wait for the Objector to return the critique report.
 
 Integrate all reports into a response for the user:
 
-`
-
+```
 ## Completion Status
-
 [What was implemented]
 
 ## Objector's Critique
-
 [Key points of criticism + Priority]
 
 ## Remaining Issues & Suggestions
-
 [Unresolved queries + Potential next steps]
-`
+```
 
 ---
 
@@ -121,15 +115,15 @@ Integrate all reports into a response for the user:
 
 ### 2.0 Switch Branch
 
-`bash
+```bash
 git checkout copilot-settings
-`
+```
 
 Create it if it doesn't exist:
 
-`bash
+```bash
 git checkout -b copilot-settings
-`
+```
 
 ### 2.1 Use Agent Customization Skill
 
