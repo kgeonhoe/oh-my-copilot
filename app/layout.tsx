@@ -1,14 +1,13 @@
 /**
  * @file layout.tsx
  * @description Root layout for the oh-my-copilot Next.js application.
- * Applies Geist fonts, injects an anti-flash theme script, and wraps every page
- * with the ThemeProvider, Navbar, and Footer.
+ * Applies Geist fonts and wraps every page with the Navbar and Footer.
+ * The site is dark-only, so no runtime theme switching is used.
  */
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -21,13 +20,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-/**
- * Inline script that runs synchronously before React hydration to prevent theme flash.
- * Reads the stored preference from localStorage and sets `data-theme` on `<html>`.
- * Defaults to dark when no preference is stored.
- */
-const ANTI_FLASH_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.setAttribute('data-theme','light')}else{document.documentElement.setAttribute('data-theme','dark')}}catch(e){document.documentElement.setAttribute('data-theme','dark')}})();`;
 
 export const metadata: Metadata = {
   title: {
@@ -44,8 +36,8 @@ interface RootLayoutProps {
 }
 
 /**
- * @description Root layout applied to every route. Sets up fonts, injects the
- * anti-flash script, and wraps the page tree with ThemeProvider, Navbar, and Footer.
+ * @description Root layout applied to every route. Sets up fonts and wraps the
+ * page tree with Navbar and Footer while forcing dark theme at the document level.
  * @param props - {@link RootLayoutProps}
  * @returns The full HTML document shell.
  */
@@ -56,19 +48,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
+      data-theme="dark"
       data-scroll-behavior="smooth"
-      suppressHydrationWarning
     >
-      <head>
-        {/* Prevents light/dark flash by applying data-theme before React hydration */}
-        <script dangerouslySetInnerHTML={{ __html: ANTI_FLASH_SCRIPT }} />
-      </head>
       <body className="flex min-h-screen flex-col bg-background text-foreground antialiased">
-        <ThemeProvider>
-          <Navbar />
-          <main className="flex flex-1 flex-col pt-16">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <Navbar />
+        <main className="flex flex-1 flex-col pt-16">{children}</main>
+        <Footer />
       </body>
     </html>
   );

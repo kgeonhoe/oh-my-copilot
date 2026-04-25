@@ -2,16 +2,14 @@
  * @file Navbar.tsx
  * @description Site-wide navigation bar rendered as a Server Component.
  * Fixed to the top of the viewport with a frosted-glass backdrop.
- * Contains the site logo, primary nav links, and the client-side ThemeSelector.
+ * Contains the site logo and primary nav links.
  * Links: Home / Get Started / How It Works / Showcase / Changelog / About
  */
 
 import Link from "next/link";
-import ThemeSelector from "@/components/ThemeSelector";
 
 /**
- * @description Sticky top navigation bar with logo, nav links, and theme selector.
- * Rendered server-side; ThemeSelector is a client component hydrated in the browser.
+ * @description Sticky top navigation bar with logo and nav links.
  * @returns A `<nav>` element fixed to the top of the viewport.
  */
 export default function Navbar(): React.JSX.Element {
@@ -33,41 +31,37 @@ export default function Navbar(): React.JSX.Element {
           </span>
         </Link>
 
-        {/* Nav links and theme selector */}
-        <div className="flex items-center gap-6">
-          <div className="hidden sm:flex items-center gap-5">
-            <Link
-              href="/get-started"
-              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
-            >
-              /get-started
-            </Link>
-            <Link
-              href="/how-it-works"
-              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
-            >
-              /how-it-works
-            </Link>
-            <Link
-              href="/showcase"
-              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
-            >
-              /showcase
-            </Link>
-            <Link
-              href="/changelog"
-              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
-            >
-              /changelog
-            </Link>
-            <Link
-              href="/about"
-              className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
-            >
-              /about
-            </Link>
-          </div>
-          <ThemeSelector />
+        <div className="hidden sm:flex items-center gap-5">
+          <Link
+            href="/get-started"
+            className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+          >
+            /get-started
+          </Link>
+          <Link
+            href="/how-it-works"
+            className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+          >
+            /how-it-works
+          </Link>
+          <Link
+            href="/showcase"
+            className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+          >
+            /showcase
+          </Link>
+          <Link
+            href="/changelog"
+            className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+          >
+            /changelog
+          </Link>
+          <Link
+            href="/about"
+            className="font-mono text-sm text-(--text-secondary) transition-colors hover:text-accent"
+          >
+            /about
+          </Link>
         </div>
       </div>
     </nav>

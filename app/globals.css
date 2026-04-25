@@ -5,7 +5,7 @@
    Cyberpunk-terminal aesthetic: deep navy + electric cyan
    ============================================================ */
 
-/* Default: dark theme (cyberpunk-primary) */
+/* Dark-only theme (cyberpunk-primary) */
 :root {
   --bg-base: #060d1a;
   --bg-surface: #0d1b2e;
@@ -26,77 +26,6 @@
   --grid-color: rgba(0, 204, 255, 0.04);
   --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.4);
   --shadow-glow: 0 0 24px rgba(0, 204, 255, 0.15);
-}
-
-/* Auto light — system prefers light and no explicit data-theme override */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg-base: #f0f6ff;
-    --bg-surface: #ffffff;
-    --bg-card: #f8fbff;
-    --bg-glass: rgba(240, 246, 255, 0.9);
-
-    --text-primary: #0a1628;
-    --text-secondary: #3d5a80;
-    --text-muted: #7090b0;
-
-    --accent: #0088bb;
-    --accent-dim: rgba(0, 136, 187, 0.1);
-    --accent-glow: rgba(0, 136, 187, 0.25);
-
-    --border-color: rgba(0, 136, 187, 0.15);
-    --border-subtle: rgba(0, 0, 0, 0.06);
-
-    --grid-color: rgba(0, 136, 187, 0.04);
-    --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.08);
-    --shadow-glow: 0 0 24px rgba(0, 136, 187, 0.12);
-  }
-}
-
-/* Forced dark */
-[data-theme="dark"] {
-  --bg-base: #060d1a;
-  --bg-surface: #0d1b2e;
-  --bg-card: #0f2035;
-  --bg-glass: rgba(6, 13, 26, 0.85);
-
-  --text-primary: #e8f4ff;
-  --text-secondary: #8bacc4;
-  --text-muted: #4a6d8c;
-
-  --accent: #00ccff;
-  --accent-dim: rgba(0, 204, 255, 0.1);
-  --accent-glow: rgba(0, 204, 255, 0.35);
-
-  --border-color: rgba(0, 204, 255, 0.12);
-  --border-subtle: rgba(255, 255, 255, 0.05);
-
-  --grid-color: rgba(0, 204, 255, 0.04);
-  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 24px rgba(0, 204, 255, 0.15);
-}
-
-/* Forced light */
-[data-theme="light"] {
-  --bg-base: #f0f6ff;
-  --bg-surface: #ffffff;
-  --bg-card: #f8fbff;
-  --bg-glass: rgba(240, 246, 255, 0.9);
-
-  --text-primary: #0a1628;
-  --text-secondary: #3d5a80;
-  --text-muted: #7090b0;
-
-  --accent: #0088bb;
-  --accent-dim: rgba(0, 136, 187, 0.1);
-  --accent-glow: rgba(0, 136, 187, 0.25);
-
-  --border-color: rgba(0, 136, 187, 0.15);
-  --border-subtle: rgba(0, 0, 0, 0.06);
-
-  --grid-color: rgba(0, 136, 187, 0.04);
-  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 0 24px rgba(0, 136, 187, 0.12);
 }
 
 /* ============================================================

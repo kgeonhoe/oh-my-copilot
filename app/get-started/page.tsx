@@ -25,7 +25,12 @@ interface StepProps {
  * @param props - {@link StepProps}
  * @returns A styled step card.
  */
-function Step({ number, label, description, code }: StepProps): React.JSX.Element {
+function Step({
+  number,
+  label,
+  description,
+  code,
+}: StepProps): React.JSX.Element {
   return (
     <div
       className="animate-fade-in-up blog-card relative overflow-hidden rounded-2xl p-8"
@@ -37,9 +42,16 @@ function Step({ number, label, description, code }: StepProps): React.JSX.Elemen
       >
         {String(number).padStart(2, "0")}
       </div>
-      <p className="mb-1 font-mono text-xs text-accent">// step {number}</p>
-      <h3 className="mb-3 font-mono text-xl font-semibold text-foreground">{label}</h3>
-      <div className="text-(--text-secondary) leading-relaxed">{description}</div>
+      <p className="mb-1 font-mono text-xs text-accent">
+        {"// step "}
+        {number}
+      </p>
+      <h3 className="mb-3 font-mono text-xl font-semibold text-foreground">
+        {label}
+      </h3>
+      <div className="text-(--text-secondary) leading-relaxed">
+        {description}
+      </div>
       {code && (
         <div className="mt-4 rounded-lg bg-surface border border-(--border-color) px-4 py-3 font-mono text-sm text-accent overflow-x-auto">
           <span className="text-(--text-muted) select-none mr-2">$</span>
@@ -57,17 +69,18 @@ function Step({ number, label, description, code }: StepProps): React.JSX.Elemen
  */
 export default function GetStartedPage(): React.JSX.Element {
   return (
-    <div className="mx-auto w-full max-w-4xl px-6 py-16">
+    <div className="mx-auto w-full max-w-6xl px-6 py-16">
       {/* Page header */}
       <header className="animate-fade-in-up mb-16">
-        <p className="mb-2 font-mono text-xs text-accent">// init</p>
+        <p className="mb-2 font-mono text-xs text-accent">{"// init"}</p>
         <h1 className="font-mono text-4xl font-bold text-foreground md:text-5xl">
           Get Started
         </h1>
         <p className="mt-4 text-lg text-(--text-secondary) leading-relaxed max-w-2xl">
           Three steps. Two git commands. One{" "}
           <span className="font-mono text-accent">$10/month</span> subscription.
-          That is all it takes to activate a full agent engineering team in VS Code.
+          That is all it takes to activate a full agent engineering team in VS
+          Code.
         </p>
       </header>
 
@@ -78,7 +91,9 @@ export default function GetStartedPage(): React.JSX.Element {
         aria-labelledby="prereqs-heading"
       >
         <div className="blog-card rounded-xl p-6">
-          <p className="mb-3 font-mono text-xs text-accent">// prerequisites</p>
+          <p className="mb-3 font-mono text-xs text-accent">
+            {"// prerequisites"}
+          </p>
           <h2
             id="prereqs-heading"
             className="mb-4 font-mono text-base font-semibold text-foreground"
@@ -87,20 +102,29 @@ export default function GetStartedPage(): React.JSX.Element {
           </h2>
           <ul className="flex flex-col gap-2">
             {[
-              { check: "VS Code", detail: "Any recent version. The agent system is built into Copilot Chat." },
+              {
+                check: "VS Code",
+                detail:
+                  "Any recent version. The agent system is built into Copilot Chat.",
+              },
               {
                 check: "GitHub Copilot subscription",
-                detail: "Individual plan ($10/mo). Copilot Chat and Agent mode must be enabled.",
+                detail:
+                  "Individual plan ($10/mo). Copilot Chat and Agent mode must be enabled.",
               },
               {
                 check: "A GitHub account",
                 detail: "Needed to fork the repo and push your own projects.",
               },
             ].map(({ check, detail }) => (
-              <li key={check} className="flex items-start gap-2 text-sm text-(--text-secondary)">
+              <li
+                key={check}
+                className="flex items-start gap-2 text-sm text-(--text-secondary)"
+              >
                 <span className="shrink-0 text-accent font-mono mt-0.5">✓</span>
                 <span>
-                  <span className="font-mono text-foreground">{check}</span> — {detail}
+                  <span className="font-mono text-foreground">{check}</span> —{" "}
+                  {detail}
                 </span>
               </li>
             ))}
@@ -110,7 +134,7 @@ export default function GetStartedPage(): React.JSX.Element {
 
       {/* Steps */}
       <section aria-labelledby="steps-heading" className="mb-16">
-        <p className="mb-1 font-mono text-xs text-accent">// setup</p>
+        <p className="mb-1 font-mono text-xs text-accent">{"// setup"}</p>
         <h2
           id="steps-heading"
           className="mb-6 font-mono text-2xl font-semibold text-foreground"
@@ -124,12 +148,13 @@ export default function GetStartedPage(): React.JSX.Element {
             label="Fork the repo and check out copilot-settings"
             description={
               <p>
-                Fork <span className="font-mono text-accent">oh-my-copilot</span> on
+                Fork{" "}
+                <span className="font-mono text-accent">oh-my-copilot</span> on
                 GitHub, then locally check out the{" "}
-                <span className="font-mono text-accent">copilot-settings</span> branch.
-                This branch contains only the{" "}
-                <span className="font-mono text-accent">.github/</span> directory — no
-                app code, no dependencies.
+                <span className="font-mono text-accent">copilot-settings</span>{" "}
+                branch. This branch contains only the{" "}
+                <span className="font-mono text-accent">.github/</span>{" "}
+                directory — no app code, no dependencies.
               </p>
             }
             code="git clone https://github.com/YOUR_HANDLE/oh-my-copilot -b copilot-settings"
@@ -141,10 +166,10 @@ export default function GetStartedPage(): React.JSX.Element {
             description={
               <p>
                 Copy the entire{" "}
-                <span className="font-mono text-accent">.github/</span> folder from
-                the cloned repo into the root of your own project. VS Code and
-                Copilot will automatically pick up all instructions, skills, agents,
-                and prompts inside it — no extra configuration required.
+                <span className="font-mono text-accent">.github/</span> folder
+                from the cloned repo into the root of your own project. VS Code
+                and Copilot will automatically pick up all instructions, skills,
+                agents, and prompts inside it — no extra configuration required.
               </p>
             }
             code="cp -r oh-my-copilot/.github/ your-project/"
@@ -159,8 +184,9 @@ export default function GetStartedPage(): React.JSX.Element {
                   Open your project in VS Code. In Copilot Chat, switch to{" "}
                   <span className="font-mono text-accent">Agent</span> mode and
                   select the <span className="font-mono text-accent">Boss</span>{" "}
-                  agent. Describe what you want to build in plain language — Boss
-                  will route your request to the right agent workflow automatically.
+                  agent. Describe what you want to build in plain language —
+                  Boss will route your request to the right agent workflow
+                  automatically.
                 </p>
                 <p>
                   Try starting with:{" "}
@@ -179,13 +205,13 @@ export default function GetStartedPage(): React.JSX.Element {
         className="animate-fade-in-up blog-card rounded-2xl p-8 text-center"
         style={{ animationDelay: "0.45s" }}
       >
-        <p className="mb-2 font-mono text-xs text-accent">// next</p>
+        <p className="mb-2 font-mono text-xs text-accent">{"// next"}</p>
         <h2 className="mb-4 font-mono text-2xl font-semibold text-foreground">
           Understand the system
         </h2>
         <p className="mb-6 text-(--text-secondary)">
-          Read How It Works to understand the three routing scenarios and what each
-          agent specialises in — before you start your first session.
+          Read How It Works to understand the three routing scenarios and what
+          each agent specialises in — before you start your first session.
         </p>
         <Link
           href="/how-it-works"

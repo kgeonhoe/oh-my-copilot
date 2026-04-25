@@ -50,7 +50,10 @@ function ScenarioCard({
       >
         {number}
       </div>
-      <p className="mb-1 font-mono text-xs text-accent">// scenario {number}</p>
+      <p className="mb-1 font-mono text-xs text-accent">
+        {"// scenario "}
+        {number}
+      </p>
       <h3 className="mb-2 font-mono text-lg font-semibold text-foreground">
         {label}
       </h3>
@@ -118,10 +121,12 @@ function AgentCard({
  */
 export default function HowItWorksPage(): React.JSX.Element {
   return (
-    <div className="mx-auto w-full max-w-4xl px-6 py-16">
+    <div className="mx-auto w-full max-w-6xl px-6 py-16">
       {/* ── Page header ─────────────────────────────────── */}
       <header className="animate-fade-in-up mb-16">
-        <p className="mb-2 font-mono text-xs text-accent">// architecture</p>
+        <p className="mb-2 font-mono text-xs text-accent">
+          {"// architecture"}
+        </p>
         <h1 className="font-mono text-4xl font-bold text-foreground md:text-5xl">
           How It Works
         </h1>
@@ -139,7 +144,9 @@ export default function HowItWorksPage(): React.JSX.Element {
           className="animate-fade-in-up mb-8"
           style={{ animationDelay: "0.05s" }}
         >
-          <p className="mb-1 font-mono text-xs text-accent">// boss.routes</p>
+          <p className="mb-1 font-mono text-xs text-accent">
+            {"// boss.routes"}
+          </p>
           <h2
             id="scenarios-heading"
             className="font-mono text-2xl font-semibold text-foreground"
@@ -180,7 +187,9 @@ export default function HowItWorksPage(): React.JSX.Element {
       {/* ── Section 2: The Agent Team ───────────────────── */}
       <section className="mb-20" aria-labelledby="team-heading">
         <div className="animate-fade-in-up mb-8">
-          <p className="mb-1 font-mono text-xs text-accent">// agent.team</p>
+          <p className="mb-1 font-mono text-xs text-accent">
+            {"// agent.team"}
+          </p>
           <h2
             id="team-heading"
             className="font-mono text-2xl font-semibold text-foreground"
@@ -230,7 +239,9 @@ export default function HowItWorksPage(): React.JSX.Element {
       {/* ── Section 3: Branch Strategy ──────────────────── */}
       <section className="mb-20" aria-labelledby="branch-heading">
         <div className="animate-fade-in-up mb-8">
-          <p className="mb-1 font-mono text-xs text-accent">// git.strategy</p>
+          <p className="mb-1 font-mono text-xs text-accent">
+            {"// git.strategy"}
+          </p>
           <h2
             id="branch-heading"
             className="font-mono text-2xl font-semibold text-foreground"

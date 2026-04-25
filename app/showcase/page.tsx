@@ -25,7 +25,7 @@ export default function ShowcasePage(): React.JSX.Element {
     <div className="mx-auto w-full max-w-6xl px-6 py-16">
       {/* ── Page header ─────────────────────────────────── */}
       <header className="animate-fade-in-up mb-16">
-        <p className="mb-2 font-mono text-xs text-accent">// built.with</p>
+        <p className="mb-2 font-mono text-xs text-accent">{"// built.with"}</p>
         <h1 className="font-mono text-4xl font-bold text-foreground md:text-5xl">
           Showcase
         </h1>
@@ -41,7 +41,7 @@ export default function ShowcasePage(): React.JSX.Element {
           className="animate-fade-in-up mb-8"
           style={{ animationDelay: "0.05s" }}
         >
-          <p className="mb-1 font-mono text-xs text-accent">// featured</p>
+          <p className="mb-1 font-mono text-xs text-accent">{"// featured"}</p>
           <h2
             id="featured-heading"
             className="font-mono text-xl font-semibold text-foreground"
@@ -69,7 +69,7 @@ export default function ShowcasePage(): React.JSX.Element {
           className="animate-fade-in-up mb-8"
           style={{ animationDelay: "0.3s" }}
         >
-          <p className="mb-1 font-mono text-xs text-accent">// more</p>
+          <p className="mb-1 font-mono text-xs text-accent">{"// more"}</p>
           <h2
             id="more-heading"
             className="font-mono text-xl font-semibold text-foreground"

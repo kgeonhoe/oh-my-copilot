@@ -20,10 +20,10 @@ export const metadata: Metadata = {
  */
 export default function ChangelogPage(): React.JSX.Element {
   return (
-    <div className="mx-auto w-full max-w-3xl px-6 py-16">
+    <div className="mx-auto w-full max-w-6xl px-6 py-16">
       {/* ── Page header ─────────────────────────────────── */}
       <header className="animate-fade-in-up mb-16">
-        <p className="mb-2 font-mono text-xs text-accent">// git.log</p>
+        <p className="mb-2 font-mono text-xs text-accent">{"// git.log"}</p>
         <h1 className="font-mono text-4xl font-bold text-foreground md:text-5xl">
           Changelog
         </h1>

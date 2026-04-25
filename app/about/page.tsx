@@ -19,10 +19,10 @@ export const metadata: Metadata = {
  */
 export default function AboutPage(): React.JSX.Element {
   return (
-    <div className="mx-auto w-full max-w-4xl px-6 py-16">
+    <div className="mx-auto w-full max-w-6xl px-6 py-16">
       {/* Page header */}
       <header className="animate-fade-in-up mb-16">
-        <p className="mb-2 font-mono text-xs text-accent">// whoami</p>
+        <p className="mb-2 font-mono text-xs text-accent">{"// whoami"}</p>
         <h1 className="font-mono text-4xl font-bold text-foreground md:text-5xl">
           About
         </h1>
@@ -48,29 +48,40 @@ export default function AboutPage(): React.JSX.Element {
             </h2>
             <div className="flex flex-col gap-4 leading-relaxed text-(--text-secondary)">
               <blockquote className="border-l-2 border-accent pl-4 font-mono text-sm text-accent italic">
-                &ldquo;I wanted to turn GitHub Copilot from a tab-completion tool into an actual engineering team.&rdquo;
+                &ldquo;I wanted to turn GitHub Copilot from a tab-completion
+                tool into an actual engineering team.&rdquo;
               </blockquote>
               <p>
-                I use <span className="font-mono text-accent">GitHub Copilot</span> every
-                day, but I kept feeling like it wasn&apos;t living up to its potential.
-                Most developers treat it as an autocomplete upgrade. I wanted something
-                different — a structured workflow where specialised agents handle
-                planning, implementation, testing, and review as a coordinated team.
+                I use{" "}
+                <span className="font-mono text-accent">GitHub Copilot</span>{" "}
+                every day, but I kept feeling like it wasn&apos;t living up to
+                its potential. Most developers treat it as an autocomplete
+                upgrade. I wanted something different — a structured workflow
+                where specialised agents handle planning, implementation,
+                testing, and review as a coordinated team.
               </p>
               <p>
                 After a few weeks studying VS Code&apos;s agent system, I built
-                Boss, Worker, Tester, Objector, and Teacher — each with a clear role
-                and a strict scope. The first time Boss routed a feature request all
-                the way from spec to commit without me writing a line of code, I knew
-                the direction was right.
+                Boss, Worker, Tester, Objector, and Teacher — each with a clear
+                role and a strict scope. The first time Boss routed a feature
+                request all the way from spec to commit without me writing a
+                line of code, I knew the direction was right.
               </p>
               <p>
-                This config is open-source because good tooling should be shared. If
-                it helps you ship faster, a star on GitHub is the best thanks.
+                This config is open-source because good tooling should be
+                shared. If it helps you ship faster, a star on GitHub is the
+                best thanks.
               </p>
             </div>
             <div className="mt-8 flex flex-wrap gap-3">
-              {["VS Code", "GitHub Copilot", "Agent Design", "Next.js", "Go", "Open Source"].map((tag) => (
+              {[
+                "VS Code",
+                "GitHub Copilot",
+                "Agent Design",
+                "Next.js",
+                "Go",
+                "Open Source",
+              ].map((tag) => (
                 <span
                   key={tag}
                   className="rounded-full border border-(--border-color) bg-(--accent-dim) px-3 py-1 font-mono text-xs text-accent"
@@ -113,13 +124,14 @@ export default function AboutPage(): React.JSX.Element {
                   projects and technical writing.
                 </p>
                 <p>
-                  I&apos;m interested in developer tooling, AI-assisted workflows, and
-                  the craft of building interfaces that feel genuinely good to use —
-                  fast, accessible, and a little beautiful.
+                  I&apos;m interested in developer tooling, AI-assisted
+                  workflows, and the craft of building interfaces that feel
+                  genuinely good to use — fast, accessible, and a little
+                  beautiful.
                 </p>
                 <p>
-                  oh-my-copilot is my most-used personal project. I rely on it for
-                  every feature I ship.
+                  oh-my-copilot is my most-used personal project. I rely on it
+                  for every feature I ship.
                 </p>
               </div>
               <div className="mt-2 flex items-center gap-4">

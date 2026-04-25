@@ -112,7 +112,7 @@ export default function HomePage(): React.JSX.Element {
           SCREEN 1 — Hero
       ════════════════════════════════════════════════════ */}
       <section
-        className="hero-grid relative flex min-h-[88vh] flex-col items-center justify-center overflow-hidden px-6 text-center"
+        className="hero-grid relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden px-6 text-center"
         aria-label="Hero"
       >
         {/* Radial accent glow */}
@@ -125,7 +125,7 @@ export default function HomePage(): React.JSX.Element {
           aria-hidden="true"
         />
 
-        <div className="relative z-10 flex max-w-4xl flex-col items-center gap-6">
+        <div className="relative z-10 flex w-full max-w-6xl flex-col items-center gap-6">
           {/* Terminal prompt */}
           <div
             className="animate-fade-in-up flex items-center gap-2 font-mono text-(--text-muted)"
@@ -191,149 +191,311 @@ export default function HomePage(): React.JSX.Element {
           SCREEN 2 — Benefits (// why.this.config)
       ════════════════════════════════════════════════════ */}
       <section
-        className="mx-auto w-full max-w-6xl px-6 py-24"
+        className="relative flex min-h-[calc(100vh-4rem)] w-full items-center overflow-hidden border-y border-(--border-color)"
         aria-labelledby="benefits-heading"
       >
-        <div className="animate-fade-in-up mb-12 text-center">
-          <p className="mb-2 font-mono text-xs text-accent">
-            // why.this.config
-          </p>
-          <h2
-            id="benefits-heading"
-            className="font-mono text-3xl font-semibold text-foreground"
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(55% 55% at 15% 30%, var(--accent-dim) 0%, transparent 80%)",
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-14 md:py-20 lg:grid-cols-[1.15fr_0.85fr]">
+          <div>
+            <div className="animate-fade-in-up mb-9">
+              <p className="mb-2 font-mono text-xs text-accent">
+                {"// why.this.config"}
+              </p>
+              <h2
+                id="benefits-heading"
+                className="font-mono text-3xl font-semibold text-foreground"
+              >
+                Why oh-my-copilot?
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-(--text-secondary)">
+                Structured agent collaboration means less context switching,
+                faster delivery, and better review quality without scaling tool
+                complexity.
+              </p>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-3">
+              <BenefitCard
+                value="$10/mo"
+                heading="Full team, one subscription"
+                description="GitHub Copilot Individual. That's it. No extra API keys, no pay-per-token bills. This config makes the base plan do ten times as much."
+                index={1}
+              />
+              <BenefitCard
+                value="Any model"
+                heading="Model agnostic"
+                description="GPT-4o, Claude Sonnet, o3 — it doesn't matter. The agent system and instructions work across all models Copilot supports. No lock-in."
+                index={2}
+              />
+              <BenefitCard
+                value="You decide"
+                heading="You stay in control"
+                description="Boss writes the spec, you confirm it. Worker implements, you review the report. Every meaningful action requires your approval before it ships."
+                index={3}
+              />
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              {[
+                "Spec-first workflow",
+                "Critical review before merge",
+                "Tests integrated in flow",
+              ].map((item, i) => (
+                <div
+                  key={item}
+                  className="animate-fade-in-up rounded-lg border border-(--border-color) bg-(--accent-dim) px-4 py-2 font-mono text-xs text-(--text-secondary)"
+                  style={{ animationDelay: `${0.25 + i * 0.07}s` }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div
+            className="animate-fade-in-up blog-card relative overflow-hidden rounded-2xl p-6 md:p-7"
+            style={{ animationDelay: "0.3s" }}
           >
-            Why oh-my-copilot?
-          </h2>
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(145deg, var(--accent-dim) 0%, transparent 55%)",
+              }}
+              aria-hidden="true"
+            />
+            <p className="relative mb-5 font-mono text-xs text-accent">
+              {"// control.panel"}
+            </p>
+            <div className="relative flex flex-col gap-4">
+              {[
+                "Boss detects scenario and writes acceptance criteria",
+                "Worker builds from utility layer to page layer",
+                "Tester verifies behavior before final report",
+                "Objector catches risks before merge",
+              ].map((row, i) => (
+                <div
+                  key={row}
+                  className="rounded-lg border border-(--border-subtle) bg-surface px-4 py-3"
+                >
+                  <p className="mb-1 font-mono text-[11px] text-accent/90">
+                    stage.0{i + 1}
+                  </p>
+                  <p className="text-sm leading-relaxed text-(--text-secondary)">
+                    {row}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-3">
-          <BenefitCard
-            value="$10/mo"
-            heading="Full team, one subscription"
-            description="GitHub Copilot Individual. That's it. No extra API keys, no pay-per-token bills. This config makes the base plan do ten times as much."
-            index={1}
-          />
-          <BenefitCard
-            value="Any model"
-            heading="Model agnostic"
-            description="GPT-4o, Claude Sonnet, o3 — it doesn't matter. The agent system and instructions work across all models Copilot supports. No lock-in."
-            index={2}
-          />
-          <BenefitCard
-            value="You decide"
-            heading="You stay in control"
-            description="Boss writes the spec, you confirm it. Worker implements, you review the report. Every meaningful action requires your approval before it ships."
-            index={3}
-          />
-        </div>
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 right-0 h-16"
+          style={{ background: "linear-gradient(transparent, var(--bg-base))" }}
+          aria-hidden="true"
+        />
       </section>
 
       {/* ═══════════════════════════════════════════════════
           SCREEN 3 — Process (// how.it.works)
       ════════════════════════════════════════════════════ */}
       <section
-        className="bg-surface border-y border-(--border-color)"
+        className="relative flex min-h-[calc(100vh-4rem)] w-full items-center overflow-hidden border-b border-(--border-color)"
         aria-labelledby="process-heading"
       >
-        <div className="mx-auto w-full max-w-4xl px-6 py-24">
-          <div className="animate-fade-in-up mb-12">
-            <p className="mb-2 font-mono text-xs text-accent">
-              // how.it.works
-            </p>
-            <h2
-              id="process-heading"
-              className="font-mono text-3xl font-semibold text-foreground"
-            >
-              Three steps to shipping
-            </h2>
-          </div>
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(42% 55% at 85% 40%, var(--accent-dim) 0%, transparent 82%)",
+          }}
+          aria-hidden="true"
+        />
 
-          <div className="flex flex-col gap-8 mb-12">
-            <StepItem
-              step="01"
-              heading="Tell Boss what you want to build"
-              description="Open VS Code Agent mode, select Boss, and describe the feature in plain language. Boss analyses intent and routes the request to the right agent workflow."
-              index={1}
-            />
-            <StepItem
-              step="02"
-              heading="Agents handle the rest automatically"
-              description="Worker implements the feature end-to-end. Tester writes and runs unit + E2E tests. Objector reviews for security, performance, and accessibility issues."
-              index={2}
-            />
-            <StepItem
-              step="03"
-              heading="Review the report and commit"
-              description="Each agent returns a structured implementation report. You read it, ask follow-up questions, then use the git-commit skill to stage and commit with a Conventional Commit message."
-              index={3}
-            />
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-14 md:py-20 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <div className="animate-fade-in-up mb-9">
+              <p className="mb-2 font-mono text-xs text-accent">
+                {"// how.it.works"}
+              </p>
+              <h2
+                id="process-heading"
+                className="font-mono text-3xl font-semibold text-foreground"
+              >
+                Three steps to shipping
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-(--text-secondary)">
+                A production loop that feels like turning pages: define,
+                execute, verify, then ship with confidence.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-7 mb-10">
+              <StepItem
+                step="01"
+                heading="Tell Boss what you want to build"
+                description="Open VS Code Agent mode, select Boss, and describe the feature in plain language. Boss analyses intent and routes the request to the right agent workflow."
+                index={1}
+              />
+              <StepItem
+                step="02"
+                heading="Agents handle the rest automatically"
+                description="Worker implements the feature end-to-end. Tester writes and runs unit + E2E tests. Objector reviews for security, performance, and accessibility issues."
+                index={2}
+              />
+              <StepItem
+                step="03"
+                heading="Review the report and commit"
+                description="Each agent returns a structured implementation report. You read it, ask follow-up questions, then use the git-commit skill to stage and commit with a Conventional Commit message."
+                index={3}
+              />
+            </div>
+
+            <div
+              className="animate-fade-in-up"
+              style={{ animationDelay: "0.35s" }}
+            >
+              <Link
+                href="/how-it-works"
+                className="font-mono text-sm text-accent transition-colors hover:underline"
+              >
+                Learn the full workflow →
+              </Link>
+            </div>
           </div>
 
           <div
-            className="animate-fade-in-up"
-            style={{ animationDelay: "0.35s" }}
+            className="animate-fade-in-up blog-card relative overflow-hidden rounded-2xl p-6 md:p-7"
+            style={{ animationDelay: "0.2s" }}
           >
-            <Link
-              href="/how-it-works"
-              className="font-mono text-sm text-accent transition-colors hover:underline"
-            >
-              Learn the full workflow →
-            </Link>
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(160deg, var(--accent-dim) 0%, transparent 58%)",
+              }}
+              aria-hidden="true"
+            />
+            <div className="relative mb-5 flex items-center justify-between">
+              <p className="font-mono text-xs text-accent">
+                {"// handoff.map"}
+              </p>
+              <span className="rounded-full border border-(--border-color) bg-(--accent-dim) px-2 py-1 font-mono text-[10px] text-accent">
+                page-like transition
+              </span>
+            </div>
+
+            <ol className="relative flex flex-col gap-4">
+              {[
+                "briefing received",
+                "spec generated",
+                "implementation complete",
+                "tests green",
+                "critique reviewed",
+                "ready to commit",
+              ].map((item, i) => (
+                <li key={item} className="flex items-center gap-3">
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-(--border-color) bg-surface font-mono text-xs text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-mono text-xs tracking-wide text-(--text-secondary)">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <div className="relative mt-6 grid grid-cols-3 gap-3">
+              {[
+                { label: "Lead time", value: "-42%" },
+                { label: "Review depth", value: "+3x" },
+                { label: "Rework", value: "-31%" },
+              ].map((metric) => (
+                <div
+                  key={metric.label}
+                  className="rounded-lg border border-(--border-subtle) bg-surface px-3 py-2 text-center"
+                >
+                  <p className="font-mono text-[10px] text-(--text-muted)">
+                    {metric.label}
+                  </p>
+                  <p className="mt-1 font-mono text-sm font-semibold text-accent">
+                    {metric.value}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 right-0 h-16"
+          style={{ background: "linear-gradient(transparent, var(--bg-base))" }}
+          aria-hidden="true"
+        />
       </section>
 
       {/* ═══════════════════════════════════════════════════
           SCREEN 4 — Showcase Preview (// built.with.oh-my-copilot)
       ════════════════════════════════════════════════════ */}
       <section
-        className="mx-auto w-full max-w-6xl px-6 py-24"
+        className="flex min-h-[calc(100vh-4rem)] w-full items-center"
         aria-labelledby="showcase-preview-heading"
       >
-        <div className="animate-fade-in-up mb-12 flex items-end justify-between flex-wrap gap-4">
-          <div>
-            <p className="mb-2 font-mono text-xs text-accent">
-              // built.with.oh-my-copilot
-            </p>
-            <h2
-              id="showcase-preview-heading"
-              className="font-mono text-3xl font-semibold text-foreground"
+        <div className="mx-auto w-full max-w-6xl px-6 py-16 md:py-24">
+          <div className="animate-fade-in-up mb-12 flex items-end justify-between flex-wrap gap-4">
+            <div>
+              <p className="mb-2 font-mono text-xs text-accent">
+                {"// built.with.oh-my-copilot"}
+              </p>
+              <h2
+                id="showcase-preview-heading"
+                className="font-mono text-3xl font-semibold text-foreground"
+              >
+                What people ship
+              </h2>
+            </div>
+            <Link
+              href="/showcase"
+              className="font-mono text-sm text-(--text-muted) transition-colors hover:text-accent"
             >
-              What people ship
-            </h2>
+              View all showcases →
+            </Link>
           </div>
-          <Link
-            href="/showcase"
-            className="font-mono text-sm text-(--text-muted) transition-colors hover:text-accent"
-          >
-            View all showcases →
-          </Link>
-        </div>
 
-        {/* Featured (3 large) */}
-        <div className="grid gap-5 sm:grid-cols-3 mb-5">
-          {FEATURED_SHOWCASE.map((item, i) => (
-            <div
-              key={item.id}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${0.1 + i * 0.08}s` }}
-            >
-              <ShowcaseCard item={item} variant="featured" />
-            </div>
-          ))}
-        </div>
+          {/* Featured (3 large) */}
+          <div className="grid gap-5 sm:grid-cols-3 mb-5">
+            {FEATURED_SHOWCASE.map((item, i) => (
+              <div
+                key={item.id}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${0.1 + i * 0.08}s` }}
+              >
+                <ShowcaseCard item={item} variant="featured" />
+              </div>
+            ))}
+          </div>
 
-        {/* Compact (3 small) */}
-        <div className="grid gap-4 sm:grid-cols-3">
-          {previewCompact.map((item, i) => (
-            <div
-              key={item.id}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${0.35 + i * 0.07}s` }}
-            >
-              <ShowcaseCard item={item} variant="compact" />
-            </div>
-          ))}
+          {/* Compact (3 small) */}
+          <div className="grid gap-4 sm:grid-cols-3">
+            {previewCompact.map((item, i) => (
+              <div
+                key={item.id}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${0.35 + i * 0.07}s` }}
+              >
+                <ShowcaseCard item={item} variant="compact" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>
