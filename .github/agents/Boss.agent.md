@@ -88,26 +88,45 @@ Wait for the work skill to complete and return the implementation report (includ
 
 ### 1.5 Delegate to Objector for Review
 
-Invoke the Objector sub-agent, passing the spec + implementation report:
+Ensure the dev server is running (start it if needed with `pnpm dev`), then invoke the Objector sub-agent with:
 
-> Conduct a critical review of the following implementation. [features/<feature-name>/index.md path + implementation report]
+> Feature: <feature-name>, Server: <server-url>
 
-Wait for the Objector to return the critique report.
+The Objector will:
 
-### 1.6 Summary Report
+1. Dynamically discover pages and interactions to test
+2. Call the `webapp-testing` skill to capture screenshots into `features/<feature-name>/objector-evidence/`
+3. Analyze results across design, SEO, extensibility, security, and performance lenses
+4. Return the full review report as its output
 
-Integrate all reports into a response for the user:
+Wait for Objector to return the report.
+
+### 1.5.1 Commit All Changes
+
+Invoke the `git-commit` skill (`.github/skills/git-commit/SKILL.md`) to stage and commit everything: the implementation files, the Playwright capture script, and the evidence screenshots.
+
+### 1.6 Re-think with Summary Report
+
+Integrate the Objector's returned report into the final response (it is already in context — no file read needed):
 
 ```
 ## Completion Status
-[What was implemented]
+[What was implemented — list of modified files]
 
-## Objector's Critique
-[Key points of criticism + Priority]
+## Objector's Verdict
+[Copy the Verdict paragraph from objector-summary.md]
 
-## Remaining Issues & Suggestions
-[Unresolved queries + Potential next steps]
+## Blockers & Major Issues
+[List Blockers first, then Major Issues — these require action before considering the feature done]
+
+## Minor Issues & Polish
+[List minor findings for the user to optionally address]
+
+## Recommendation
+[One sentence: is the feature ready to ship, or does it need a follow-up iteration?]
 ```
+
+If there are Blockers, explicitly tell the user the feature is NOT ready and propose what to fix next.
 
 ---
 
