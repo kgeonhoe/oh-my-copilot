@@ -14,8 +14,8 @@ oh-my-copilot/
 │   ├── internal/          # Business logic, handlers, middleware
 │   └── ...
 ├── docs/
-│   ├── blogs/             # Markdown source files for blog posts
-│   └── features/          # Feature specs written during development
+│   └── blogs/             # Markdown source files for blog posts
+├── features/              # Feature specs written during development
 └── .github/               # Agent customization files (instructions, prompts, skills)
 ```
 
@@ -72,7 +72,7 @@ Browser → Next.js (App Router) → Go REST API → PostgreSQL
 
 ## Frontend Conventions
 
-See [.github/instructions/frontend-coding.instructions.md](.github/instructions/frontend-coding.instructions.md) for the full coding standard. Key rules:
+See [.github/instructions/nextjs-tailwind.instructions.md](.github/instructions/nextjs-tailwind.instructions.md) and [.github/instructions/general-frontend.instructions.md](.github/instructions/general-frontend.instructions.md) for the full coding standard. Key rules:
 
 - **Server Components by default** — add `"use client"` only for interactivity or browser APIs.
 - **shadcn/ui** for all base UI components. Install with `pnpm dlx shadcn@latest add <component>`.
@@ -95,7 +95,7 @@ See [.github/instructions/frontend-coding.instructions.md](.github/instructions/
 | `app/layout.tsx`                          | Root layout, fonts, global providers      |
 | `app/globals.css`                         | Tailwind 4 import + CSS custom properties |
 | `docs/blogs/*.md`                         | Blog post source files                    |
-| `.github/prompts/add-feature.prompt.md`   | Workflow for implementing new features    |
+| `features/*/index.md`                     | Feature spec documents                    |
 | `.github/skills/work/SKILL.md`            | Step-by-step feature implementation skill |
 | `.github/skills/frontend-design/SKILL.md` | UI design quality guidelines              |
 
