@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# oh-my-copilot
 
-## Getting Started
+A production-ready Next.js starter template with a structured multi-agent GitHub Copilot workflow. Drop it into any project to get a consistent AI-assisted development loop — planning, implementation, testing, and adversarial review — all driven by specialized agents and skill files.
 
-First, run the development server:
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 16 (App Router) · React 19 · TypeScript 5 |
+| Styling | Tailwind CSS v4 · Shadcn/ui |
+| Testing | Playwright |
+| Package manager | pnpm |
+
+## Agent System
+
+The `.github/agents/` and `.github/skills/` directories define a team of AI agents and reusable skills:
+
+| Agent / Skill | Role |
+|---|---|
+| **Boss** | Orchestrates feature work — creates branches, delegates to skills, manages PRs |
+| **Tester** | Writes and runs unit tests and Playwright E2E acceptance tests |
+| **Objector** | Adversarial reviewer — checks design quality, UX, SEO, security, and performance |
+| **Teacher** | Explains code and concepts from first principles using Feynman's method |
+| **`work` skill** | Full-stack feature implementation (spec → types → API → components → page) |
+| **`frontend-design` skill** | Produces distinctive, production-grade UI — avoids generic AI aesthetics |
+| **`generate-unit-test` skill** | Generates unit tests for new features |
+| **`git-commit` skill** | Stages changes and generates Conventional Commits messages |
+| **`theme-factory` skill** | Applies or generates visual themes for artifacts |
+| **`webapp-testing` skill** | Captures Playwright screenshots and interaction evidence for feature review |
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 1. Install dependencies
+pnpm i
+
+# 2. Start the development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Bootstrap a new project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open GitHub Copilot Chat, select the **Boss** agent, and run the `init-project` prompt with a short description of your project:
 
-## Learn More
+```
+@Boss /init-project My project name — one-line purpose, tech stack hints
+```
 
-To learn more about Next.js, take a look at the following resources:
+Boss will update `AGENTS.md`, implement the first feature, and start the dev server.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+.
+├── app/                        # Next.js App Router routes
+│   ├── layout.tsx              # Root layout (fonts, global CSS)
+│   └── page.tsx                # Home page
+├── .github/
+│   ├── agents/                 # Agent instruction files (Boss, Tester, Objector, Teacher)
+│   ├── instructions/           # Coding standards auto-injected into Copilot context
+│   │   ├── nextjs-tailwind.instructions.md
+│   │   ├── general-frontend.instructions.md
+│   │   ├── go-gin.instructions.md
+│   │   └── ...
+│   ├── prompts/                # Reusable Copilot prompt files
+│   │   └── init-project.prompt.md
+│   └── skills/                 # Reusable skill modules invoked by agents
+│       ├── work/
+│       ├── frontend-design/
+│       ├── generate-unit-test/
+│       └── ...
+├── AGENTS.md                   # Project constraints shared across all agents
+├── tests/                      # Playwright test suites
+└── package.json
+```
 
-## Deploy on Vercel
+## Coding Standards
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All coding standards live in `.github/instructions/` and are automatically applied by Copilot:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js + Tailwind** — App Router conventions, Tailwind utility classes, Shadcn/ui patterns
+- **TypeScript** — strict types, JSDoc headers on every file, no `any`
+- **Go + Gin** — handler/service separation, GoDoc comments, consistent JSON error format
+- **Accessibility** — WCAG AA contrast, semantic HTML, visible focus rings
+
+## Available Scripts
+
+```bash
+pnpm dev      # Start development server (http://localhost:3000)
+pnpm build    # Production build
+pnpm start    # Start production server
+pnpm lint     # Run ESLint
+```
