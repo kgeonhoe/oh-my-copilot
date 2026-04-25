@@ -22,7 +22,7 @@ Accept input from the user in any of these forms:
 
 - A file path (e.g. `lib/blog.ts`)
 - A feature name or description
-- A spec document (e.g. `.github/features/<name>/index.md`)
+- A spec document (e.g. `features/<name>/index.md`)
 - Code pasted directly into the chat
 
 If the input is a file path or feature name, read the relevant source file(s) before proceeding.
