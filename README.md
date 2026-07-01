@@ -93,3 +93,26 @@ pnpm build    # Production build
 pnpm start    # Start production server
 pnpm lint     # Run ESLint
 ```
+
+
+// setup
+
+Three Steps
+// step 1
+
+Fork the repo and check out copilot-settings
+Fork oh-my-copilot on GitHub, then locally check out the copilot-settings branch. This branch contains only the .github/ directory — no app code, no dependencies.
+
+git clone https://github.com/YOUR_HANDLE/oh-my-copilot -b copilot-settings
+// step 2
+
+Copy .github/ into your project
+Copy the entire .github/ folder from the cloned repo into the root of your own project. VS Code and Copilot will automatically pick up all instructions, skills, agents, and prompts inside it — no extra configuration required.
+
+cp -r oh-my-copilot/.github/ your-project/
+// step 3
+
+Open Agent mode and talk to Boss
+Open your project in VS Code. In Copilot Chat, switch to Agent mode and select the Boss agent. Describe what you want to build in plain language — Boss will route your request to the right agent workflow automatically.
+
+Try starting with: “I want to add user authentication to my app.”
